@@ -1,4 +1,4 @@
-import { Repository } from '../shared/repository.js';
+/*import { Repository } from '../shared/repository.js';
 import { TipoVolquete } from './tipovolquete.entity.js';
 const repository = new TipoVolqueteRepository();
 
@@ -33,3 +33,4 @@ export class TipoVolqueteRepository implements Repository<TipoVolquete> {
     }
   }
 }
+*/
