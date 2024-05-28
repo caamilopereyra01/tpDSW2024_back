@@ -1,3 +1,10 @@
+/// PARA INICIAR EL SERVIDOR.-
+1- Abrir una terminal
+2- Ubicarse en la carpeta del proyecto
+3- Correr el siguiente código: '   npm run start:dev   '
+
+
+
 # VolquetesLosHermanos
 La empresa "Volquetes Los Hermanos" nos contacta para llevar a cabo la gestion de alquileres y cobranzas de sus volquetes.
 

@@ -36,7 +36,7 @@ Content-Type: application/json
 
 ### ----------------------------  UPDATE (PATCH) ----------------------------
 
-###pathc: para modificaciones de un subconjunto de atributos.
+###PATCH: para modificaciones de un subconjunto de atributos.
 PUT http://localhost:3000/api/tipovolquete/tipovolquetes/0-0-0-0-1
 Content-Type: application/json
 
