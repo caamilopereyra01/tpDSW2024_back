@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from 'express'
 import { TipoVolquete } from './tipovolquete/tipovolquete.entity.js';
 import { it } from 'node:test'
+import { TipoVolqueteRepository } from './tipovolquete/tipovolquete.repository.js';
 
 
 const app = express()
@@ -8,7 +9,7 @@ app.use(express.json())
 
 
 
-
+const repository = new TipoVolqueteRepository()
 
 
 //----------------------------DEFINO LA CLASE O ENTIDAD TIPO VOLQUETE----------------------------
@@ -19,9 +20,6 @@ const tipovolquetes =[
         'Grande'     
     ),
 ] 
-
-
-
 
 
 //---------------------------- DEFINO LA FUNCION SANITIZE ----------------------------
@@ -46,18 +44,16 @@ function sanitizeTipoVolqueteInput(req: Request, res: Response, next: NextFuncti
 //----------------------------  GET ALL ----------------------------
 
 app.get('/api/tipovolquete/tipovolquetes',(req,res) =>{
-    res.json({data:tipovolquetes})
+    res.json({data:repository.findAll()})
 })
-
-
-
 
 
 //----------------------------  GET ONE ----------------------------
 
 
 app.get('/api/tipovolquete/tipovolquetes/:id',(req,res) =>{
-    const tipovolquete = tipovolquetes.find((tipovolquete) => tipovolquete.id_tipo_volquete ===  req.params.id)
+    const id = req.params.id
+    const tipovolquete = repository.findOne({id})
     if(!tipovolquete){
         return res.status(404).send({ message:'Character not found'})
     }
@@ -71,11 +67,11 @@ app.get('/api/tipovolquete/tipovolquetes/:id',(req,res) =>{
 
 app.post('/api/tipovolquete/tipovolquetes',sanitizeTipoVolqueteInput,(req,res) =>{
     const input = req.body.sanitizedInput
-    const tipovolquete = new TipoVolquete(
+    const tipovolqueteInput = new TipoVolquete(
        input.id_tipo_volquete,
        input.descripcion_tipo_volquete
       )
-      tipovolquetes.push(tipovolquete)
+    const tipovolquete=repository.add(tipovolqueteInput)
     return res.status(201).send({message:'Tipo Volquete creado correctamente', data:tipovolquete})
   })
   
@@ -85,17 +81,16 @@ app.post('/api/tipovolquete/tipovolquetes',sanitizeTipoVolqueteInput,(req,res) =
 
 
 app.put('/api/tipovolquete/tipovolquetes/:id', sanitizeTipoVolqueteInput, (req, res) => {
-  
-    const tipovolqueteIdx = tipovolquetes.findIndex((tipovolquete) => tipovolquete.id_tipo_volquete === req.params.id)
-
-    if(tipovolqueteIdx === -1){
+    
+    req.body.sanitizedInput.id_tipo_volquete = req.params.id
+    const tipovolquete = repository.update(req.body.sanitizedInput)    
+ 
+    if(!tipovolquete){
      return res.status(404).send({ message:'Tipo Volquete not found'})          
     }
     
-    tipovolquetes[tipovolqueteIdx] = { ...tipovolquetes[tipovolqueteIdx], ...req.body.sanitizedInput }
-    
-    return res.status(200).send({message:'Tipo Volquete update successfully', data: tipovolquetes
-    [tipovolqueteIdx]})
+    return res.status(200).send({message:'Tipo Volquete update successfully', data: tipovolquete})
+
 })
 
 
@@ -104,17 +99,15 @@ app.put('/api/tipovolquete/tipovolquetes/:id', sanitizeTipoVolqueteInput, (req, 
 //----------------------------  PATCH (justo en este caso es = PUT) ----------------------------
 
 app.patch('/api/tipovolquete/tipovolquetes/:id', sanitizeTipoVolqueteInput, (req, res) => {
-  
-    const tipovolqueteIdx = tipovolquetes.findIndex((tipovolquete) => tipovolquete.id_tipo_volquete === req.params.id)
-
-    if(tipovolqueteIdx === -1){
-        return res.status(404).send({ message:'Tipo Volquete not found'})          
+ 
+    req.body.sanitizedInput.id_tipo_volquete = req.params.id
+    const tipovolquete = repository.update(req.body.sanitizedInput)    
+ 
+    if(!tipovolquete){
+     return res.status(404).send({ message:'Tipo Volquete not found'})          
     }
     
-    tipovolquetes[tipovolqueteIdx] = { ...tipovolquetes[tipovolqueteIdx], ...req.body.sanitizedInput }
-    //Objet.assign(tipovolquetes[tipovolqueteIdx], req.bodi.sanitizedInput)
-    return res.status(200).send({message:'Tipo Volquete update successfully', data: tipovolquetes
-    [tipovolqueteIdx]})
+    return res.status(200).send({message:'Tipo Volquete update successfully', data: tipovolquete})
 })
 
 
@@ -122,12 +115,13 @@ app.patch('/api/tipovolquete/tipovolquetes/:id', sanitizeTipoVolqueteInput, (req
 
 //----------------------------  DELETE ----------------------------
 app.delete('/api/tipovolquete/tipovolquetes/:id',(req,res)=>{
-    const tipovolqueteIdx = tipovolquetes.findIndex((tipovolquete) => tipovolquete.id_tipo_volquete === req.params.id)
+    
+    const id = req.params.id
+    const tipovolquete = repository.delete({id})
 
-    if(tipovolqueteIdx===-1){
+     if(!tipovolquete){
         res.status(400).send({message:'Tipo Volquete not found'})
     } else {
-        tipovolquetes.splice(tipovolqueteIdx,1)
         res.status(200).send({message: 'Tipo Volquete deleted successfully'})
     }
     
