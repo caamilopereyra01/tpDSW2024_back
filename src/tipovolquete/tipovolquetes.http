@@ -11,7 +11,7 @@ POST http://localhost:3000/api/tipovolquete/tipovolquetes
 Content-Type: application/json
 
 {
-    //"id_tipo_volquete":"0-0-0-0-2",
+    "id_tipo_volquete":"0-0-0-0-2",
     "descripcion_tipo_volquete":"Mediano"
 }
 

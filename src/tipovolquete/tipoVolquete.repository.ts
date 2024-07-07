@@ -1,6 +1,5 @@
 import { Repository } from '../shared/repository.js';
 import { TipoVolquete } from './tipovolquete.entity.js';
-const repository = new TipoVolqueteRepository();
 
 const tiposVolquetes = [
   new TipoVolquete('1-1-1-1-1', 'Chico'),
@@ -14,8 +13,8 @@ export class TipoVolqueteRepository implements Repository<TipoVolquete> {
     return tiposVolquetes;
   }
 
-  public findOne(item: { id_tipo_volquete: string }): TipoVolquete | undefined {
-    return tiposVolquetes.find((tipoVolquete) => tipoVolquete.id_tipo_volquete === item.id_tipo_volquete);
+  public findOne(item: { id: string }): TipoVolquete | undefined {
+    return tiposVolquetes.find((tipoVolquete) => tipoVolquete.id_tipo_volquete === item.id);
   }
 
   public add(item: TipoVolquete): TipoVolquete | undefined {
@@ -26,7 +25,7 @@ export class TipoVolqueteRepository implements Repository<TipoVolquete> {
   public update(item: TipoVolquete): TipoVolquete | undefined {
     const tipovolqueteIdx = tiposVolquetes.findIndex((tipoVolquete) => tipoVolquete.id_tipo_volquete ==item.id_tipo_volquete)
 
-    if(tipovolqueteIdx!=-1){
+    if(tipovolqueteIdx!==-1){
       tiposVolquetes[tipovolqueteIdx] = { ...tiposVolquetes[tipovolqueteIdx], ...item}
     }
     
@@ -39,7 +38,7 @@ export class TipoVolqueteRepository implements Repository<TipoVolquete> {
   public delete(item: { id: string }): TipoVolquete | undefined {
     const tipoVolqueteIdx = tiposVolquetes.findIndex(
       (tipoVolquete) => tipoVolquete.id_tipo_volquete === item.id
-    );
+      );
     if (tipoVolqueteIdx !== -1) {
       const deletedTiposVolquetes = tiposVolquetes[tipoVolqueteIdx];
       tiposVolquetes.splice(tipoVolqueteIdx, 1);
