@@ -2,44 +2,23 @@ import express, { NextFunction, Request, Response } from 'express'
 import { TipoVolquete } from './tipovolquete/tipovolquete.entity.js';
 import { it } from 'node:test'
 import { TipoVolqueteRepository } from './tipovolquete/tipovolquete.repository.js';
-
+import { tipovolqueteRouter } from './tipovolquete/tipovolquete.routes.js';
 
 const app = express()
 app.use(express.json())
 
-
-
 const repository = new TipoVolqueteRepository()
 
 
-//----------------------------DEFINO LA CLASE O ENTIDAD TIPO VOLQUETE----------------------------
 
-const tipovolquetes =[
-    new TipoVolquete(
-        '0-0-0-0-1',
-        'Grande'     
-    ),
-] 
-
-
-//---------------------------- DEFINO LA FUNCION SANITIZE ----------------------------
-
-function sanitizeTipoVolqueteInput(req: Request, res: Response, next: NextFunction){
-    req.body.sanitizedInput = {
-       descripcion_tipo_volquete: req.body.descripcion_tipo_volquete,
-    }
-    //mas chequeos
-
-    Object.keys(req.body.sanitizedInput).forEach(key=>{
-       if(req.body.sanitizedInput[key]===undefined) {
-        delete req.body.sanitizedInput[key]
-       }
-    })
-    next()
-}
+app.use('/api/tipovolquete/tipovolquetes',tipovolqueteRouter)
 
 
 
+
+/*
+
+ANTERIOR USANDO SOLO REPOSITORY
 
 //----------------------------  GET ALL ----------------------------
 
@@ -125,8 +104,7 @@ app.delete('/api/tipovolquete/tipovolquetes/:id',(req,res)=>{
         res.status(200).send({message: 'Tipo Volquete deleted successfully'})
     }
     
-})
-
+})*/
 
 
 // DEFAULT
