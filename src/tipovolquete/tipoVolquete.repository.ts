@@ -1,30 +1,44 @@
-/*import { Repository } from '../shared/repository.js';
+import { Repository } from '../shared/repository.js';
 import { TipoVolquete } from './tipovolquete.entity.js';
 const repository = new TipoVolqueteRepository();
 
 const tiposVolquetes = [
-  new TipoVolquete('1', 'Chico'),
-  new TipoVolquete('2', 'Mediano'),
-  new TipoVolquete('3', 'Grande'),
+  new TipoVolquete('1-1-1-1-1', 'Chico'),
+  new TipoVolquete('2-2-2-2-2', 'Mediano'),
+  new TipoVolquete('3-3-3-3-3', 'Grande'),
 ];
+
 
 export class TipoVolqueteRepository implements Repository<TipoVolquete> {
   public findAll(): TipoVolquete[] | undefined {
     return tiposVolquetes;
   }
 
-  public findOne(item: { id: string }): TipoVolquete | undefined {
-    return tiposVolquetes.find((tipoVolquete) => tipoVolquete.id === item.id);
+  public findOne(item: { id_tipo_volquete: string }): TipoVolquete | undefined {
+    return tiposVolquetes.find((tipoVolquete) => tipoVolquete.id_tipo_volquete === item.id_tipo_volquete);
   }
 
   public add(item: TipoVolquete): TipoVolquete | undefined {
     tiposVolquetes.push(item);
-    return item;
+    return item
   }
+
+  public update(item: TipoVolquete): TipoVolquete | undefined {
+    const tipovolqueteIdx = tiposVolquetes.findIndex((tipoVolquete) => tipoVolquete.id_tipo_volquete ==item.id_tipo_volquete)
+
+    if(tipovolqueteIdx!=-1){
+      tiposVolquetes[tipovolqueteIdx] = { ...tiposVolquetes[tipovolqueteIdx], ...item}
+    }
+    
+    return  tiposVolquetes[tipovolqueteIdx]
+     
+  }
+
+
 
   public delete(item: { id: string }): TipoVolquete | undefined {
     const tipoVolqueteIdx = tiposVolquetes.findIndex(
-      (tipoVolquete) => tipoVolquete.id === item.id
+      (tipoVolquete) => tipoVolquete.id_tipo_volquete === item.id
     );
     if (tipoVolqueteIdx !== -1) {
       const deletedTiposVolquetes = tiposVolquetes[tipoVolqueteIdx];
@@ -32,5 +46,6 @@ export class TipoVolqueteRepository implements Repository<TipoVolquete> {
       return deletedTiposVolquetes;
     }
   }
+
+
 }
-*/
