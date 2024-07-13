@@ -1,7 +1,7 @@
 /// PARA INICIAR EL SERVIDOR.-
 1- Abrir una terminal
 2- Ubicarse en la carpeta del proyecto
-3- Correr el siguiente código: '   npm run start:dev   '
+3- Correr el siguiente código: '   pnpm run start:dev   '
 
 
 
