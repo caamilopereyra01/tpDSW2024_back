@@ -4,7 +4,7 @@ import { tipovolqueteRouter } from './tipovolquete/tipovolquete.routes.js'
 const app = express()
 app.use(express.json())
 
-app.use('/api/tipovolquete/tipovolquetes',tipovolqueteRouter)
+app.use('/api/tipovolquetes',tipovolqueteRouter)
 
 // DEFAULT
 app.use((_,res)=>{

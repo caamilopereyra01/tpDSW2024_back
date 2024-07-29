@@ -25,67 +25,68 @@ function sanitizeTipoVolqueteInput(req: Request, res: Response, next: NextFuncti
 
 //----------------------------  GET ALL ----------------------------
 
-function findAll(req: Request,res: Response) {
-    res.json({data:repository.findAll()})
-}
-
-
-//----------------------------  GET ONE ----------------------------
-
-
-function findOne(req: Request,res: Response) {
-    const id = req.params.id
-    const tipovolquete = repository.findOne({id})
-    if(!tipovolquete){
-        return res.status(404).send({ message:'Character not found'})
-    }
-    res.json({data:tipovolquete})
-}
-
-
-//----------------------------  POST (AGREGAR - CREATE) ----------------------------
-
-function add(req: Request,res: Response) {
-    const input = req.body.sanitizedInput
-
-    const tipovolqueteInput = new TipoVolquete(
-       input.id_tipo_volquete,
-       input.descripcion_tipo_volquete
-      )
-    const tipovolquete=repository.add(tipovolqueteInput)
-    return res.status(201).send({message:'Tipo Volquete creado correctamente', data:tipovolquete})
+async function findAll(req: Request, res: Response) {
+    res.json({ data: await repository.findAll() })
   }
   
 
-//----------------------------  PUT y PATH  (UPDATE) ----------------------------
+//----------------------------  GET ONE ----------------------------
 
-
-function update(req: Request,res: Response) {
-    req.body.sanitizedInput.id_tipo_volquete = req.params.id
-    const tipovolquete = repository.update(req.body.sanitizedInput)    
- 
-    if(!tipovolquete){
-     return res.status(404).send({ message:'Tipo Volquete not found'})          
+async function findOne(req: Request, res: Response) {
+    const id = req.params.id
+    const tipovolquete = await repository.findOne({ id })
+    if (!tipovolquete) {
+      return res.status(404).send({ message: 'tipovolquete not found' })
     }
-    
-    return res.status(200).send({message:'Tipo Volquete update successfully', data: tipovolquete})
+    res.json({ data: tipovolquete })
+  }
 
-}
+
+//----------------------------  CREATE ----------------------------
+  async function add(req: Request, res: Response) {
+    const input = req.body.sanitizedInput
+  
+    const tipovolqueteInput = new TipoVolquete(
+        input.descripcion_tipo_volquete,
+        input.id_tipo_volquete
+
+    )
+  
+    const tipovolquete = await repository.add(tipovolqueteInput)
+    return res.status(201).send({ message: 'tipovolquete created', data: tipovolquete })
+  }
+
+
+//----------------------------  UPDATE ----------------------------
+
+
+
+async function update(req: Request, res: Response) {
+    const tipovolquete = await repository.update(req.params.id, req.body.sanitizedInput)
+  
+    if (!tipovolquete) {
+      return res.status(404).send({ message: 'tipovolquete not found' })
+    }
+  
+    return res.status(200).send({ message: 'tipovolquete updated successfully', data: tipovolquete })
+  }
 
 
 //----------------------------  DELETE ----------------------------
 /*Cambia el nombre de Delete a Remove pq sino no funciona se ve que es palabra reservada o algo asi*/
 function remove(req: Request,res: Response) {
-    
-    const id = req.params.id
-    const tipovolquete = repository.delete({id})
+       
+    async function remove(req: Request, res: Response) {
+        const id = req.params.id
+        const tipovolquete = await repository.delete({ id })
+      
+        if (!tipovolquete) {
+          res.status(404).send({ message: 'tipovolquete not found' })
+        } else {
+          res.status(200).send({ message: 'tipovolquete deleted successfully' })
+        }
+      }
 
-     if(!tipovolquete){
-        res.status(400).send({message:'Tipo Volquete not found'})
-    } else {
-        res.status(200).send({message: 'Tipo Volquete deleted successfully'})
-    }
-    
 }
 
 
