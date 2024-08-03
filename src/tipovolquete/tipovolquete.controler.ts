@@ -33,7 +33,7 @@ async function findAll(req: Request, res: Response) {
 //----------------------------  GET ONE ----------------------------
 
 async function findOne(req: Request, res: Response) {
-    const id = req.params.id
+    const id = req.params.id_tipo_volquete //req.params.id   ?? 
     const tipovolquete = await repository.findOne({ id })
     if (!tipovolquete) {
       return res.status(404).send({ message: 'tipovolquete not found' })
