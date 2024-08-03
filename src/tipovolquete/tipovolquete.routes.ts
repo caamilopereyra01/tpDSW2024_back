@@ -4,8 +4,8 @@ import { contTP } from "./tipovolquete.controler.js";/*Aqui utilizo controler pa
 export const tipovolqueteRouter = Router()
 
 tipovolqueteRouter.get('/', contTP.findAll)
-tipovolqueteRouter.get('/:id', contTP.findOne)
+tipovolqueteRouter.get('/:id_tipo_volquete', contTP.findOne)
 tipovolqueteRouter.post('/', contTP.sanitizeTipoVolqueteInput, contTP.add)
-tipovolqueteRouter.put('/:id', contTP.sanitizeTipoVolqueteInput, contTP.update)
-tipovolqueteRouter.patch('/:id', contTP.sanitizeTipoVolqueteInput, contTP.update)
-tipovolqueteRouter.delete('/:id', contTP.remove)
+tipovolqueteRouter.put('/:id_tipo_volquete', contTP.sanitizeTipoVolqueteInput, contTP.update)
+tipovolqueteRouter.patch('/:id_tipo_volquete', contTP.sanitizeTipoVolqueteInput, contTP.update)
+tipovolqueteRouter.delete('/:id_tipo_volquete', contTP.remove)

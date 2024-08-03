@@ -3,8 +3,8 @@ GET HTTP://localhost:3000/api/tipovolquetes
 
 
 ### ----------------------------  GET ONE ----------------------------
-GET GET HTTP://localhost:3000/api/tipovolquetes/2
-
+GET HTTP://localhost:3000/api/tipovolquetes/1
+ 
 
 ### ----------------------------  CREATE (POST) ----------------------------
 POST http://localhost:3000/api/tipovolquetes
