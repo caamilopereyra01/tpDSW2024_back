@@ -44,8 +44,20 @@ export class TipoVolqueteRepository implements Repository<TipoVolquete> {
 
 
     /* ---------------------------------- ADD ----------------------------------*/
-  public async add(item: TipoVolquete): Promise<TipoVolquete | undefined> {
-    throw new Error('not implemented')
+
+  public async add(tipovolqueteInput: TipoVolquete): Promise<TipoVolquete | undefined> {
+    const { id_tipo_volquete, ...tipovolqueteRow } = tipovolqueteInput
+    const [result] = await pool.query<ResultSetHeader>('insert into TIPO_VOLQUETE set ?', [tipovolqueteRow])
+    tipovolqueteInput.id_tipo_volquete = result.insertId
+    
+    /*no aplica en este caso, pero en caso de tener un atributo multivaluado lo puedo insertar en conjunto con el character
+    de la siguiente manera, a sabiendas que un Character puede tener varios items:
+    */
+    /*for (const item of items) {
+      await pool.query('insert into characterItems set ?', { characterId: characterInput.id, itemName: item })
+    }*/
+
+    return tipovolqueteInput
   }
 
 

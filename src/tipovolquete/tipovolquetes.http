@@ -11,8 +11,8 @@ POST http://localhost:3000/api/tipovolquetes
 Content-Type: application/json
 
 {
-    //"id_tipo_volquete":"0-0-0-0-2",
-    "descripcion_tipo_volquete":"MEDIANO"
+    //"id_tipo_volquete":"4", no se define ya que es autoincremental
+    "descripcion_tipo_volquete":"EXTRA CHICO"
 }
 
 

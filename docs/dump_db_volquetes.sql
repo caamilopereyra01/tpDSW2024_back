@@ -59,7 +59,7 @@ DROP TABLE IF EXISTS `CLIENTE`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `CLIENTE` (
-  `id_cliente` int NOT NULL,
+  `id_cliente` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) NOT NULL,
   `apellido` varchar(100) NOT NULL,
   `telefono` varchar(20) DEFAULT NULL,
@@ -137,7 +137,7 @@ DROP TABLE IF EXISTS `FACTURA`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `FACTURA` (
-  `nro_factura` int NOT NULL,
+  `nro_factura` int NOT NULL AUTO_INCREMENT,
   `tipo_factura` varchar(10) NOT NULL,
   `fecha_emision` date NOT NULL,
   `estado` varchar(20) DEFAULT NULL,
@@ -242,10 +242,10 @@ DROP TABLE IF EXISTS `TIPO_VOLQUETE`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `TIPO_VOLQUETE` (
-  `id_tipo_volquete` int NOT NULL,
+  `id_tipo_volquete` int NOT NULL AUTO_INCREMENT,
   `descripcion_tipo_volquete` varchar(100) NOT NULL,
   PRIMARY KEY (`id_tipo_volquete`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -254,7 +254,7 @@ CREATE TABLE `TIPO_VOLQUETE` (
 
 LOCK TABLES `TIPO_VOLQUETE` WRITE;
 /*!40000 ALTER TABLE `TIPO_VOLQUETE` DISABLE KEYS */;
-INSERT INTO `TIPO_VOLQUETE` VALUES (1,'Chico'),(2,'Medio'),(3,'Grande');
+INSERT INTO `TIPO_VOLQUETE` VALUES (1,'Chico'),(2,'Medio'),(3,'Grande'),(4,'EXTRA CHICO');
 /*!40000 ALTER TABLE `TIPO_VOLQUETE` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -266,7 +266,7 @@ DROP TABLE IF EXISTS `USUARIO`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `USUARIO` (
-  `id_usuario` int NOT NULL,
+  `id_usuario` int NOT NULL AUTO_INCREMENT,
   `nombre_usuario` varchar(50) NOT NULL,
   `contraseña` varchar(255) NOT NULL,
   `rol` varchar(50) NOT NULL,
@@ -291,7 +291,7 @@ DROP TABLE IF EXISTS `VOLQUETE`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `VOLQUETE` (
-  `nro_volquete` int NOT NULL,
+  `nro_volquete` int NOT NULL AUTO_INCREMENT,
   `id_tipo_volquete` int NOT NULL,
   `fecha_compra` date DEFAULT NULL,
   `fecha_fabricacion` date DEFAULT NULL,
@@ -299,7 +299,7 @@ CREATE TABLE `VOLQUETE` (
   PRIMARY KEY (`nro_volquete`),
   KEY `id_tipo_volquete` (`id_tipo_volquete`),
   CONSTRAINT `VOLQUETE_ibfk_1` FOREIGN KEY (`id_tipo_volquete`) REFERENCES `TIPO_VOLQUETE` (`id_tipo_volquete`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -321,4 +321,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-03  1:26:16
+-- Dump completed on 2024-08-04 12:11:12
