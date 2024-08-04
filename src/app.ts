@@ -1,10 +1,11 @@
 import express, { NextFunction, Request, Response } from 'express'
 import { tipovolqueteRouter } from './tipovolquete/tipovolquete.routes.js'
-
+import { volqueteRouter } from './volquete/volquete.routes.js'
 const app = express()
 app.use(express.json())
 
 app.use('/api/tipovolquetes',tipovolqueteRouter)
+app.use('/api/volquetes',volqueteRouter)
 
 // DEFAULT
 app.use((_,res)=>{

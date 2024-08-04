@@ -7,7 +7,7 @@ export class VolqueteRepository implements Repository<Volquete> {
 
   /* ---------------------------------- FIND ALL ----------------------------------*/
   public async findAll(): Promise<Volquete[] | undefined> {
-    const [volquete] =  await pool.query('select * from sysvol.VOLQUETE')
+    const [volquete] =  await pool.query('select * from VOLQUETE')
     
    
     /*no aplica en este caso, pero en caso de tener un atributo multivaluado lo puedo mapear de la siguiente manera, a sabiendas
@@ -27,7 +27,7 @@ export class VolqueteRepository implements Repository<Volquete> {
   /* ---------------------------------- FIND ONE ----------------------------------*/
   public async findOne(vol: { id: string }): Promise<Volquete | undefined> {
     const id = Number.parseInt(vol.id)
-    const [volquetes] =  await pool.query<RowDataPacket[]>('select * from sysvol.VOLQUETE where nro_volquete = ?',[id])
+    const [volquetes] =  await pool.query<RowDataPacket[]>('select * from VOLQUETE where nro_volquete = ?',[id])
     if(volquetes.length === 0){
       return undefined
     }
@@ -47,7 +47,7 @@ export class VolqueteRepository implements Repository<Volquete> {
 
   public async add(volqueteInput: Volquete): Promise<Volquete | undefined> {
     const { nro_volquete, ...volqueteRow } = volqueteInput
-    const [result] = await pool.query<ResultSetHeader>('insert into sysvol.VOLQUETE set ?', [volqueteRow])
+    const [result] = await pool.query<ResultSetHeader>('insert into VOLQUETE set ?', [volqueteRow])
     volqueteInput.nro_volquete = result.insertId
     
     /*no aplica en este caso, pero en caso de tener un atributo multivaluado lo puedo insertar en conjunto con el character
@@ -67,7 +67,7 @@ export class VolqueteRepository implements Repository<Volquete> {
      
     const volqueteId = Number.parseInt(id)
     const {  ...volqueteRow } = volqueteInput
-    await pool.query('update sysvol.VOLQUETE set ? where nro_volquete = ?', [volqueteRow, volqueteId])
+    await pool.query('update VOLQUETE set ? where nro_volquete = ?', [volqueteRow, volqueteId])
 /*
     await pool.query('delete from characterItems where characterId = ?', [characterId])
 
@@ -85,7 +85,7 @@ export class VolqueteRepository implements Repository<Volquete> {
     try {
       const volqueteToDelete = await this.findOne(vol)
       const volqueteId = Number.parseInt(vol.id)
-      await pool.query('delete from sysvol.TIPO_VOLQUETE where id_tipo_volquete = ?', volqueteId)
+      await pool.query('delete from TIPO_VOLQUETE where id_tipo_volquete = ?', volqueteId)
       return volqueteToDelete
     } catch (error: any) {
       throw new Error('unable to delete volquete')

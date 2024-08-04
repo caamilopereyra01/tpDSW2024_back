@@ -7,7 +7,7 @@ export class TipoVolqueteRepository implements Repository<TipoVolquete> {
 
   /* ---------------------------------- FIND ALL ----------------------------------*/
   public async findAll(): Promise<TipoVolquete[] | undefined> {
-    const [tipovolquete] =  await pool.query('select * from sysvol.TIPO_VOLQUETE')
+    const [tipovolquete] =  await pool.query('select * from TIPO_VOLQUETE')
     
    
     /*no aplica en este caso, pero en caso de tener un atributo multivaluado lo puedo mapear de la siguiente manera, a sabiendas
@@ -27,7 +27,7 @@ export class TipoVolqueteRepository implements Repository<TipoVolquete> {
   /* ---------------------------------- FIND ONE ----------------------------------*/
   public async findOne(tipvol: { id: string }): Promise<TipoVolquete | undefined> {
     const id = Number.parseInt(tipvol.id)
-    const [tipovolquetes] =  await pool.query<RowDataPacket[]>('select * from sysvol.TIPO_VOLQUETE where id_tipo_volquete = ?',[id])
+    const [tipovolquetes] =  await pool.query<RowDataPacket[]>('select * from TIPO_VOLQUETE where id_tipo_volquete = ?',[id])
     if(tipovolquetes.length === 0){
       return undefined
     }
@@ -47,7 +47,7 @@ export class TipoVolqueteRepository implements Repository<TipoVolquete> {
 
   public async add(tipovolqueteInput: TipoVolquete): Promise<TipoVolquete | undefined> {
     const { id_tipo_volquete, ...tipovolqueteRow } = tipovolqueteInput
-    const [result] = await pool.query<ResultSetHeader>('insert into sysvol.TIPO_VOLQUETE set ?', [tipovolqueteRow])
+    const [result] = await pool.query<ResultSetHeader>('insert into TIPO_VOLQUETE set ?', [tipovolqueteRow])
     tipovolqueteInput.id_tipo_volquete = result.insertId
     
     /*no aplica en este caso, pero en caso de tener un atributo multivaluado lo puedo insertar en conjunto con el character
@@ -67,7 +67,7 @@ export class TipoVolqueteRepository implements Repository<TipoVolquete> {
      
     const tipovolqueteId = Number.parseInt(id)
     const {  ...tipovolqueteRow } = tipovolqueteInput
-    await pool.query('update sysvol.TIPO_VOLQUETE set ? where id_tipo_volquete = ?', [tipovolqueteRow, tipovolqueteId])
+    await pool.query('update TIPO_VOLQUETE set ? where id_tipo_volquete = ?', [tipovolqueteRow, tipovolqueteId])
 /*
     await pool.query('delete from characterItems where characterId = ?', [characterId])
 
