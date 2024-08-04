@@ -3,7 +3,7 @@ GET HTTP://localhost:3000/api/tipovolquetes
 
 
 ### ----------------------------  GET ONE ----------------------------
-GET HTTP://localhost:3000/api/tipovolquetes/1
+GET HTTP://localhost:3000/api/tipovolquetes/4
  
 
 ### ----------------------------  CREATE (POST) ----------------------------
@@ -24,11 +24,11 @@ Content-Type: application/json
 
 ### modificar un  character(put y patch)
 ###PUT: para modificaciones COMPLETAS (todos los atributos que puedan ser  modificados)
-PUT http://localhost:3000/api/tipovolquete/tipovolquetes/1-1-1-1-1
+PUT http://localhost:3000/api/tipovolquetes/4
 Content-Type: application/json
 
 {
-   "descripcion_tipo_volquete":"GRANDE"
+   "descripcion_tipo_volquete":"Extra chico"
 }
 
 
@@ -37,11 +37,11 @@ Content-Type: application/json
 ### ----------------------------  UPDATE (PATCH) ----------------------------
 
 ###PATCH: para modificaciones de un subconjunto de atributos.
-PUT http://localhost:3000/api/tipovolquete/tipovolquetes/1-1-1-1-1
+PATCH http://localhost:3000/api/tipovolquetes/4
 Content-Type: application/json
 
 {
-   "descripcion_tipo_volquete":"GR - AN - DE"
+   "descripcion_tipo_volquete":"Extra - chico"
 }
 
 
@@ -49,6 +49,6 @@ Content-Type: application/json
 
 ### ----------------------------  DELETE  ----------------------------
 
-DELETE http://localhost:3000/api/tipovolquete/tipovolquetes/1-1-1-1-1
+DELETE http://localhost:3000/api/tipovolquetes/4
 
 

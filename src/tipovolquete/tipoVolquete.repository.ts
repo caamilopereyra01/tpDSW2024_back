@@ -47,7 +47,7 @@ export class TipoVolqueteRepository implements Repository<TipoVolquete> {
 
   public async add(tipovolqueteInput: TipoVolquete): Promise<TipoVolquete | undefined> {
     const { id_tipo_volquete, ...tipovolqueteRow } = tipovolqueteInput
-    const [result] = await pool.query<ResultSetHeader>('insert into TIPO_VOLQUETE set ?', [tipovolqueteRow])
+    const [result] = await pool.query<ResultSetHeader>('insert into sysvol.TIPO_VOLQUETE set ?', [tipovolqueteRow])
     tipovolqueteInput.id_tipo_volquete = result.insertId
     
     /*no aplica en este caso, pero en caso de tener un atributo multivaluado lo puedo insertar en conjunto con el character
@@ -63,16 +63,33 @@ export class TipoVolqueteRepository implements Repository<TipoVolquete> {
 
 
     /* ---------------------------------- UPDATE ----------------------------------*/
-  public async update(id: string, tipovolqueteInput: TipoVolquete): Promise<TipoVolquete | undefined>{
-    throw new Error('not implemented')
+  public async update(id: string, tipovolqueteInput: TipoVolquete): Promise<TipoVolquete | undefined> {
      
+    const tipovolqueteId = Number.parseInt(id)
+    const {  ...tipovolqueteRow } = tipovolqueteInput
+    await pool.query('update sysvol.TIPO_VOLQUETE set ? where id_tipo_volquete = ?', [tipovolqueteRow, tipovolqueteId])
+/*
+    await pool.query('delete from characterItems where characterId = ?', [characterId])
+
+    if (items?.length > 0) {
+      for (const itemName of items) {
+        await pool.query('insert into characterItems set ?', { characterId, itemName })
+      }
+    }
+    */
+    return await this.findOne({ id })
   }
-
-
       /* ---------------------------------- DELETE ----------------------------------*/
-  public async delete(item: { id: string }): Promise<TipoVolquete | undefined> {
-    throw new Error('not implemented')
-  }
 
+  public async delete(tipoVol: { id: string }): Promise<TipoVolquete | undefined> {
+    try {
+      const tipovolqueteToDelete = await this.findOne(tipoVol)
+      const tipovolqueteId = Number.parseInt(tipoVol.id)
+      await pool.query('delete from TIPO_VOLQUETE where id_tipo_volquete = ?', tipovolqueteId)
+      return tipovolqueteToDelete
+    } catch (error: any) {
+      throw new Error('unable to delete tipo volquete')
+    }
+  }
 
 }

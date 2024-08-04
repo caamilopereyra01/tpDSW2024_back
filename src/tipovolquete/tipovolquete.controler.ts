@@ -62,7 +62,7 @@ async function findOne(req: Request, res: Response) {
 
 
 async function update(req: Request, res: Response) {
-    const tipovolquete = await repository.update(req.params.id, req.body.sanitizedInput)
+    const tipovolquete = await repository.update(req.params.id_tipo_volquete, req.body.sanitizedInput)
   
     if (!tipovolquete) {
       return res.status(404).send({ message: 'tipovolquete not found' })
@@ -74,10 +74,9 @@ async function update(req: Request, res: Response) {
 
 //----------------------------  DELETE ----------------------------
 /*Cambia el nombre de Delete a Remove pq sino no funciona se ve que es palabra reservada o algo asi*/
-function remove(req: Request,res: Response) {
-       
+  
     async function remove(req: Request, res: Response) {
-        const id = req.params.id
+        const id = req.params.id_tipo_volquete
         const tipovolquete = await repository.delete({ id })
       
         if (!tipovolquete) {
@@ -86,8 +85,6 @@ function remove(req: Request,res: Response) {
           res.status(200).send({ message: 'tipovolquete deleted successfully' })
         }
       }
-
-}
 
 
 
