@@ -1,0 +1,57 @@
+### ----------------------------  GET ALL ----------------------------
+GET HTTP://localhost:3000/api/volquetes
+
+
+### ----------------------------  GET ONE ----------------------------
+GET HTTP://localhost:3000/api/volquetes/4
+ 
+
+### ----------------------------  CREATE (POST) ----------------------------
+POST http://localhost:3000/api/volquetes
+Content-Type: application/json
+
+{
+    //"id_tipo_volquete":"4", no se define ya que es autoincremental
+    "descripcion_tipo_volquete":"EXTRA CHICO"
+}
+
+
+
+
+### ----------------------------  UPDATE (PUT) ----------------------------
+
+
+
+### modificar un  character(put y patch)
+###PUT: para modificaciones COMPLETAS (todos los atributos que puedan ser  modificados)
+PUT http://localhost:3000/api/volquetes/4
+Content-Type: application/json
+
+{
+   "marca":"Caterpiler",
+   "fecha_fabricacion":"2024-03-01",
+   "fecha_compra":"2024-04-01",
+   "id_tipo_volquete":1
+}
+
+
+
+
+### ----------------------------  UPDATE (PATCH) ----------------------------
+
+###PATCH: para modificaciones de un subconjunto de atributos.
+PATCH http://localhost:3000/api/volquetes/4
+Content-Type: application/json
+
+{
+   "descripcion_tipo_volquete":"Extra - chico"
+}
+
+
+
+
+### ----------------------------  DELETE  ----------------------------
+
+DELETE http://localhost:3000/api/volquetes/4
+
+
