@@ -1,4 +1,5 @@
 version: '3.8'
+
 services:
   db:
     image: percona/percona-server
@@ -11,7 +12,7 @@ services:
       MYSQL_DATABASE: 'sysvol'
     volumes:
       - volquetesBD:/var/lib/mysql
-      - ./init-scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./init-scripts:/docker-entrypoint-initdb.d
 
     ports:
       - '3382:3382'
