@@ -1,7 +1,19 @@
 CREATE DATABASE  IF NOT EXISTS `sysvol` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+
+-- Create a new user with a password
+CREATE USER IF NOT EXISTS 'volqueteshermanos'@'%' IDENTIFIED BY 'volqueteshermanos';
+
+-- Grant all privileges on the new database to the new user
+GRANT ALL PRIVILEGES ON sysvol.* TO 'volqueteshermanos'@'%';
+
+-- Flush privileges to ensure that the changes take effect
+FLUSH PRIVILEGES;
+
+
+
 USE `sysvol`;
 -- MySQL dump 10.13  Distrib 8.0.27, for Win64 (x86_64)
---
+
 -- Host: 127.0.0.1    Database: sysvol
 -- ------------------------------------------------------
 -- Server version	9.0.1
@@ -17,9 +29,9 @@ USE `sysvol`;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
+-- 
 -- Table structure for table `ALQUILER`
---
+-- 
 
 DROP TABLE IF EXISTS `ALQUILER`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
