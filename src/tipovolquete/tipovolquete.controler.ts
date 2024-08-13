@@ -1,5 +1,5 @@
 import  { NextFunction, Request, Response } from "express"
-import { TipoVolqueteRepository } from "./tipovolquete.repository.js"
+import { TipoVolqueteRepository } from "./tipoVolquete.repository.js"
 import { TipoVolquete } from "./tipovolquete.entity.js"
 
 const repository = new TipoVolqueteRepository()

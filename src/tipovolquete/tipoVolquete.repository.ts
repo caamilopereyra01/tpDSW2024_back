@@ -8,12 +8,10 @@ export class TipoVolqueteRepository implements Repository<TipoVolquete> {
   /* ---------------------------------- FIND ALL ----------------------------------*/
   public async findAll(): Promise<TipoVolquete[] | undefined> {
     const [tipovolquete] =  await pool.query('select * from TIPO_VOLQUETE')
-    
-   
+      
     /*no aplica en este caso, pero en caso de tener un atributo multivaluado lo puedo mapear de la siguiente manera, a sabiendas
     que un Character puede tener varios items:
     */
-  
     /* 
     for (const character of characters as Character[]) {
       const [items] = await pool.query('select itemName from characterItems where characterId = ?', [character.id])

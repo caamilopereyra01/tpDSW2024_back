@@ -1,0 +1,36 @@
+#Version de Docker-Compose
+version: '3.8' 
+
+#Servicios
+services:
+  app:
+    build:
+      context: . #Esto es decir "Este directorio es el contexto"
+      dockerfile: Dockerfile
+    ports:
+     - 3000:3000
+    volumes:
+      - .:/app
+      - /app/node_modules  #Para usar los node_modules del contenedor y no los del local directory
+    depends_on:
+    - mysql_server
+
+  mysql_server:
+    image: percona/percona-server
+    container_name: ps8-dsw-VolquetesHnos
+    environment:
+      - MYSQL_DATABASE=sysvol
+      - MYSQL_ROOT_USER=root
+      - MYSQL_USER= volqueteshermanos
+      #- MYSQL_ROOT_HOST= %
+      - MYSQL_ROOT_PASSWORD=12345
+      - MYSQL_PASSWORD=volqueteshermanos
+      #- MYSQL_ALLOW_EMPTY_PASSWORD: yes
+    volumes:
+      - volquetesBD:/var/lib/mysql
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    ports:
+      - '3382:3306'
+
+volumes:
+  volquetesBD:

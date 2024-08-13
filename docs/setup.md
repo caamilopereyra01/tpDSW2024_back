@@ -40,3 +40,6 @@ docker run --name ps8-dsw-VolquetesHnos \
  -e MYSQL_DATABASE='vhdb' \
  -p 3302:3302 \
  -d percona/percona-server
+
+## Importar la Database (el dump de la DB) al Percona Server
+docker cp path/to/your-dump.sql percona-server:/your-dump.sql
