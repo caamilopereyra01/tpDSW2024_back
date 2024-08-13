@@ -1,7 +1,6 @@
 {
   "name": "00.01-tpdsw2024_back",
   "version": "1.0.0",
-  "description": "",
   "type": "module",
   "main": "index.js",
   "scripts": {
@@ -20,5 +19,9 @@
     "@types/node": "20.12.12",
     "tsc-watch": "6.0.4",
     "typescript": "5.1.3"
-  }
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "description": ""
 }

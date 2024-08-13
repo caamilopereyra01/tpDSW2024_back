@@ -3,8 +3,8 @@ import mysql from  'mysql2/promise'
 export const pool = mysql.createPool({
   host: '127.0.0.1' /*|| 'localhost' */  ,
   port: 3382,
-  user: process.env.MYSQL_ROOT_USER || 'root',
-  password: process.env.MYSQL_ROOT_PASSWORD || '12345',
+  user: process.env.MYSQL_ROOT_USER || 'volqueteshermanos',
+  password: process.env.MYSQL_ROOT_PASSWORD || 'volqueteshermanos',
   database: process.env.MYSQL_DATABASE || 'sysvol',
   waitForConnections: true,
   connectionLimit: 10,
