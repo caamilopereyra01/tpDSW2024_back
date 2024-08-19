@@ -3,6 +3,10 @@
 2- Ubicarse en la carpeta del proyecto
 3- Correr el siguiente código: '   pnpm run start:dev   '
 
+Opcion con Docker:
+...
+3- Correr el siguiente código: " docker-compose up mysql_server"
+
 
 
 # VolquetesLosHermanos
