@@ -5,7 +5,9 @@
 
 Opcion con Docker:
 ...
-3- Correr el siguiente código: " docker-compose up mysql_server"
+3- Correr el siguiente código: " docker-compose up mysql_server" para la BD
+y para el servidor node hay que hacer "npm install -g pnpm", luego "pnpm install" dentro de la carpeta del proyecto, y finalmente "pnpm run start:dev".
+
 
 
 

@@ -49,6 +49,6 @@ Content-Type: application/json
 
 ### ----------------------------  DELETE  ----------------------------
 
-DELETE http://localhost:3000/api/tipovolquetes/4
+DELETE http://localhost:3000/api/tipovolquetes/5
 
 
