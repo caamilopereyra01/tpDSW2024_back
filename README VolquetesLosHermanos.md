@@ -8,6 +8,8 @@ Opcion con Docker:
 3- Correr el siguiente código: " docker-compose up mysql_server" para la BD
 y para el servidor node hay que hacer "npm install -g pnpm", luego "pnpm install" dentro de la carpeta del proyecto, y finalmente "pnpm run start:dev".
 
+21/08.- Se puede probar con "pnpm start" en lugar de "pnpm run start:dev"
+Para compilar el TypeScript es: "pnpm run build"
 
 
 
