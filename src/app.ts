@@ -6,7 +6,8 @@ import { volqueteRouter } from './volquete/volquete.routes.js'
 
 const corsOptions = {
     origin: 'http://localhost:4200', // URL de la app de Angular 
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    methods: ['GET,HEAD,PUT,PATCH,POST,DELETE'],
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
     credentials: true,
   };
 // Use CORS middleware with the specified options
@@ -17,6 +18,9 @@ app.use(express.json());  //allows Express to parse JSON request bodies.
 
 app.use('/api/tipovolquetes',tipovolqueteRouter);
 app.use('/api/volquetes',volqueteRouter);
+
+app.options('*', cors(corsOptions)); // Manejo de solicitudes OPTIONS
+
 
 // DEFAULT
 app.use((_, res) => {
