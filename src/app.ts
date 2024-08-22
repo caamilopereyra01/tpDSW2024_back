@@ -5,7 +5,7 @@ import { tipovolqueteRouter } from './tipovolquete/tipovolquete.routes.js'
 import { volqueteRouter } from './volquete/volquete.routes.js'
 
 const corsOptions = {
-    origin: 'http://localhost:4200', // URL of your Angular app
+    origin: 'http://localhost:4200', // URL de la app de Angular 
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   };
