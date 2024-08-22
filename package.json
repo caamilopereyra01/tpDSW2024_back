@@ -11,11 +11,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "4.19.2",
     "mysql2": "^3.10.3",
     "pnpm": "^9.7.1"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/express": "4.17.21",
     "@types/node": "20.12.12",
     "tsc-watch": "6.0.4",
