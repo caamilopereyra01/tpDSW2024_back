@@ -7,7 +7,7 @@ const repository = new UsuarioRepository();
 
 //---------------------------- DEFINO LA FUNCION SANITIZE ----------------------------
 
-function sanitizeInput(req: Request, res: Response, next: NextFunction){
+function sanitizeUsuarioInput(req: Request, res: Response, next: NextFunction){
     req.body.sanitizedInput = {
       nombre_usuario: req.body.nombre_usuario,
     };
@@ -92,13 +92,13 @@ async function update(req: Request, res: Response) {
 
 
 export const contUser = {
-    sanitizeInput,
-    findAll,
-    findOne,
-    add,
-    update,
-    remove
-}
+  sanitizeUsuarioInput,
+  findAll,
+  findOne,
+  add,
+  update,
+  remove,
+};
 
 
 

@@ -3,6 +3,7 @@ import cors from 'cors';
 
 import { tipovolqueteRouter } from './tipovolquete/tipovolquete.routes.js'
 import { volqueteRouter } from './volquete/volquete.routes.js'
+import { userRouter } from './usuario/usuario.routes.js';
 
 const corsOptions = {
     origin: 'http://localhost:4200', // URL de la app de Angular 
@@ -18,6 +19,7 @@ app.use(express.json());  //allows Express to parse JSON request bodies.
 
 app.use('/api/tipovolquetes',tipovolqueteRouter);
 app.use('/api/volquetes',volqueteRouter);
+app.use('/api/usuarios', userRouter);
 
 app.options('*', cors(corsOptions)); // Manejo de solicitudes OPTIONS
 

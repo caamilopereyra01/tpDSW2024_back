@@ -1,18 +1,20 @@
 ### ----------------------------  GET ALL ----------------------------
-GET HTTP://localhost:3000/api/tipovolquetes
+GET HTTP://localhost:3000/api/usuarios
 
 
 ### ----------------------------  GET ONE ----------------------------
-GET HTTP://localhost:3000/api/tipovolquetes/4
+GET HTTP://localhost:3000/api/usuarios/1
  
 
 ### ----------------------------  CREATE (POST) ----------------------------
-POST http://localhost:3000/api/tipovolquetes
+POST http://localhost:3000/api/usuarios
 Content-Type: application/json
 
 {
-    //"id_tipo_volquete":"4", no se define ya que es autoincremental
-    "descripcion_tipo_volquete":"EXTRA CHICO"
+    //"id_usuario":"4", no se define ya que es autoincremental
+    "nombre_usuario":"Pablo2",
+    "contraseña":"123123",
+    "rol":"rol1"
 }
 
 
