@@ -2,25 +2,45 @@ import { Repository } from '../shared/repository.js'
 import { Volquete } from './volquete.entity.js'
 import { pool } from '../shared/db/conn.mysql.js'
 import { ResultSetHeader, RowDataPacket } from 'mysql2'
+import { TipoVolquete } from '../tipovolquete/tipovolquete.entity.js';
 
 export class VolqueteRepository implements Repository<Volquete> {
 
   /* ---------------------------------- FIND ALL ----------------------------------*/
   public async findAll(): Promise<Volquete[] | undefined> {
-    const [volquete] =  await pool.query('select * from VOLQUETE')
-    
-   
-    /*no aplica en este caso, pero en caso de tener un atributo multivaluado lo puedo mapear de la siguiente manera, a sabiendas
-    que un Character puede tener varios items:
-    */
-  
-    /* 
-    for (const character of characters as Character[]) {
-      const [items] = await pool.query('select itemName from characterItems where characterId = ?', [character.id])
-      character.items = (items as { itemName: string }[]).map((item) => item.itemName)
-    }
-    */
-    return volquete as Volquete[]
+    const [rows] = await pool.query(
+      `SELECT 
+         v.nro_volquete,
+         v.marca, 
+         v.fecha_fabricacion, 
+         v.fecha_compra, 
+         v.id_tipo_volquete,
+         tv.id_tipo_volquete AS id_tipo_volquete, 
+         tv.descripcion_tipo_volquete AS descripcion_tipo_volquete
+       FROM VOLQUETE v
+       JOIN TIPO_VOLQUETE tv ON v.id_tipo_volquete = tv.id_tipo_volquete`
+    );
+
+    // Mapear los resultados para construir el objeto Volquete
+    const volquetes = (rows as any[]).map(row => {
+      const tipoVolquete: TipoVolquete = {
+        id_tipo_volquete: row.id_tipo_volquete,
+        descripcion_tipo_volquete: row.descripcion_tipo_volquete
+      };
+
+      const volquete: Volquete = {
+        marca: row.marca,
+        fecha_fabricacion: row.fecha_fabricacion,
+        fecha_compra: row.fecha_compra,
+        id_tipo_volquete: row.id_tipo_volquete,
+        tipo_volquete: tipoVolquete,
+        nro_volquete: row.nro_volquete 
+      };
+
+      return volquete;
+    });
+
+    return volquetes;
   }
 
 

@@ -13,7 +13,11 @@ function sanitizeTipoVolqueteInput(req: Request, res: Response, next: NextFuncti
         fecha_fabricacion: req.body.fecha_fabricacion,
         fecha_compra: req.body.fecha_compra,
         id_tipo_volquete: req.body.id_tipo_volquete,
-    }
+        tipo_volquete: req.body.tipo_volquete ?{
+          id_tipo_volquete: req.body.tipo_volquete.id_tipo_volquete,
+          descripcion_tipo_volquete: req.body.descripcion_tipo_volquete
+        }:undefined
+    };
     //mas chequeos
 
     Object.keys(req.body.sanitizedInput).forEach(key=>{
