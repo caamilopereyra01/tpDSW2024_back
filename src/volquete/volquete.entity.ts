@@ -1,11 +1,25 @@
-import crypto from "node:crypto";
+import {
+  Entity,
+  Property,
+  ManyToMany,
+  Cascade,
+  ManyToOne,
+  Rel,
+} from '@mikro-orm/core'
+import { BaseEntity } from '../shared/db/baseEntity.entity.js'
+import { TipoVolquete } from './tipovolquete.entity.js'
 
-export class Volquete {
-  constructor(
-    public marca: string,
-    public fecha_fabricacion: Date,
-    public fecha_compra: Date,
-    public id_tipo_volquete: number,
-    public nro_volquete ?: number
-  ) {}
+@Entity()
+export class Volquete extends BaseEntity{
+ 
+  @Property({ nullable: false })
+  marca!: string
+  @Property({ nullable: false })
+  fecha_fabricacion!: Date
+  @Property({ nullable: false })
+  fecha_compra!: Date
+
+  @ManyToOne(() => TipoVolquete, { nullable: false })
+  volqueteTipoVolquete!: Rel<TipoVolquete>
+
 }

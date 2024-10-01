@@ -43,3 +43,12 @@ docker run --name ps8-dsw-VolquetesHnos \
 
 ## Importar la Database (el dump de la DB) al Percona Server
 docker cp path/to/your-dump.sql percona-server:/your-dump.sql
+
+
+
+
+
+
+
+## Correr Docker por comando:
+docker run --hostname=95f2631b29a5 --env=MYSQL_ROOT_PASSWORD=12345 --env=MYSQL_DATABASE=sysvol --env=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin --env=GOSU_VERSION=1.17bin:/sbin:/bin --env=GOSU_VERSION=1.17 --env=MYSQL_MAJOR=innovation --env=MYSQL_VERSION=9.0.1-1.el9 --env=MYSQL_SHELL_VERSION=9.0.1-1.el9 --volume=/var/lib/mysql --network=bridge -p 3382:3306 --restart=no --runtime=runc -d mysql:latest

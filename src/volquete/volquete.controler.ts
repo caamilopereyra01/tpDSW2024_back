@@ -1,7 +1,7 @@
 import  { NextFunction, Request, Response } from "express"
 import { Volquete } from "./volquete.entity.js"
 
-const repository = new VolqueteRepository()
+
 
 
 //---------------------------- DEFINO LA FUNCION SANITIZE ----------------------------
