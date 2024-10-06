@@ -1,18 +1,18 @@
 ### ----------------------------  GET ALL ----------------------------
-GET HTTP://localhost:3000/api/tipovolquetes
+GET HTTP://localhost:3000/api/volquetes/tipovolquetes
 
 
 ### ----------------------------  GET ONE ----------------------------
-GET HTTP://localhost:3000/api/tipovolquetes/4
+GET HTTP://localhost:3000/api/volquetes/tipovolquetes/4
  
 
 ### ----------------------------  CREATE (POST) ----------------------------
-POST http://localhost:3000/api/tipovolquetes
+POST http://localhost:3000/api/volquetes/tipovolquetes
 Content-Type: application/json
 
 {
     //"id_tipo_volquete":"4", no se define ya que es autoincremental
-    "descripcion_tipo_volquete":"EXTRA CHICO"
+    "descripcion_tipo_volquete":"CHICO"
 }
 
 
@@ -24,7 +24,7 @@ Content-Type: application/json
 
 ### modificar un  character(put y patch)
 ###PUT: para modificaciones COMPLETAS (todos los atributos que puedan ser  modificados)
-PUT http://localhost:3000/api/tipovolquetes/4
+PUT http://localhost:3000/api/volquetes/tipovolquetes/1
 Content-Type: application/json
 
 {
@@ -37,7 +37,7 @@ Content-Type: application/json
 ### ----------------------------  UPDATE (PATCH) ----------------------------
 
 ###PATCH: para modificaciones de un subconjunto de atributos.
-PATCH http://localhost:3000/api/tipovolquetes/4
+PATCH http://localhost:3000/api/volquetes/tipovolquetes/4
 Content-Type: application/json
 
 {
@@ -49,6 +49,6 @@ Content-Type: application/json
 
 ### ----------------------------  DELETE  ----------------------------
 
-DELETE http://localhost:3000/api/tipovolquetes/4
+DELETE http://localhost:3000/api/volquetes/tipovolquetes/4
 
 

@@ -5,9 +5,8 @@ import {
     Cascade,
     Collection,
 } from '@mikro-orm/core'
-
-import { Volquete } from './volquete.entity.js'
 import { BaseEntity } from '../shared/db/baseEntity.entity.js'
+import { Volquete } from './volquete.entity.js'
 
 @Entity()
 export class TipoVolquete  extends BaseEntity {
