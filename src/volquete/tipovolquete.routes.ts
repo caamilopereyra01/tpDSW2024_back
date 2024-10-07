@@ -1,10 +1,12 @@
-import { Router } from "express";
-import { contTP } from "./tipovolquete.controler.js";/*Aqui utilizo controler para no tener que exportar todas las funciones*/
+import pkg from 'express';
+const { Router } = pkg;
 
-export const tipovolqueteRouter = Router()
+import { contTP } from './tipovolquete.controler.js'; /*Aqui utilizo controler para no tener que exportar todas las funciones*/
 
-tipovolqueteRouter.get('/', contTP.findAll)
-tipovolqueteRouter.get('/:id_tipo_volquete', contTP.findOne)
-tipovolqueteRouter.post('/', contTP.add)
-tipovolqueteRouter.put('/:id_tipo_volquete',contTP.update)
-tipovolqueteRouter.delete('/:id_tipo_volquete', contTP.remove)
+export const tipovolqueteRouter = Router();
+
+tipovolqueteRouter.get('/', contTP.findAll);
+tipovolqueteRouter.get('/:id_tipo_volquete', contTP.findOne);
+tipovolqueteRouter.post('/', contTP.add);
+tipovolqueteRouter.put('/:id_tipo_volquete', contTP.update);
+tipovolqueteRouter.delete('/:id_tipo_volquete', contTP.remove);
