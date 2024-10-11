@@ -20,6 +20,6 @@ export class Volquete extends BaseEntity{
   fecha_compra!: Date
 
   @ManyToOne(() => TipoVolquete, { nullable: false })
-  volqueteTipoVolquete!: Rel<TipoVolquete>
+  TipoVolquete!: Rel<TipoVolquete>
 
 }

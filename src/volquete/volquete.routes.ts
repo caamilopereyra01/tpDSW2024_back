@@ -4,8 +4,8 @@ import { controlerV } from "./volquete.controler.js";/*Aqui utilizo controler pa
 export const volqueteRouter = Router()
 
 volqueteRouter.get('/', controlerV.findAll)
-volqueteRouter.get('/:nro_volquete', controlerV.findOne)
+volqueteRouter.get('/:id', controlerV.findOne)
 volqueteRouter.post('/', controlerV.sanitizeTipoVolqueteInput, controlerV.add)
-volqueteRouter.put('/:nro_volquete', controlerV.sanitizeTipoVolqueteInput, controlerV.update)
-volqueteRouter.patch('/:nro_volquete', controlerV.sanitizeTipoVolqueteInput, controlerV.update)
-volqueteRouter.delete('/:nro_volquete', controlerV.remove)
+volqueteRouter.put('/:id', controlerV.sanitizeTipoVolqueteInput, controlerV.update)
+volqueteRouter.patch('/:id', controlerV.sanitizeTipoVolqueteInput, controlerV.update)
+volqueteRouter.delete('/:id', controlerV.remove)
