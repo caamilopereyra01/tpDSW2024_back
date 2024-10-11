@@ -3,10 +3,13 @@ GET HTTP://localhost:3000/api/volquetes/tipovolquetes
 
 
 ### ----------------------------  GET ONE ----------------------------
-GET HTTP://localhost:3000/api/volquetes/tipovolquetes/1
+GET HTTP://localhost:3000/api/volquetes/tipovolquetes/2
 
  
+### ----------------------------  GET VOLQUETES ----------------------------
+GET HTTP://localhost:3000/api/volquetes/tipovolquetes/4/volquetes
 
+ 
 ### ----------------------------  CREATE (POST) ----------------------------
 POST http://localhost:3000/api/volquetes/tipovolquetes
 Content-Type: application/json

@@ -1,6 +1,7 @@
 import  {  Request, Response } from 'express'
 import { orm } from '../shared/db/orm.js'
 import { TipoVolquete } from './tipovolquete.entity.js'
+import { Volquete } from './volquete.entity.js'
 import { t } from '@mikro-orm/core'
 
 
@@ -29,6 +30,24 @@ async function findOne(req: Request, res: Response) {
     res
       .status(200)
       .json({ message: 'found tipo volquetes', data: tipoVolquetes })
+  } catch (error: any) {
+    res.status(500).json({ message: error.message })
+  }
+}
+
+
+
+
+//----------------------------  GET VOLQUETES ----------------------------
+
+async function findVolquetes(req: Request, res: Response) {
+  try {
+    const id = Number.parseInt(req.params.id_tipo_volquete)
+        // Usamos `populate` para incluir la información del TipoVolquete en la consulta
+    const volquetes = await em.find(Volquete, { TipoVolquete: id }, { populate: ['TipoVolquete'] });
+    res
+      .status(200)
+      .json({ message: 'Volquetes encontrados: ', data: volquetes })
   } catch (error: any) {
     res.status(500).json({ message: error.message })
   }
@@ -83,6 +102,7 @@ async function remove(req: Request, res: Response) {
 
 export const contTP = {
     findAll,
+    findVolquetes,
     findOne,
     add,
     update,
