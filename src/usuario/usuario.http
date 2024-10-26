@@ -12,7 +12,7 @@ Content-Type: application/json
 
 {
     //"id_usuario":"4", no se define ya que es autoincremental
-    "nombre_usuario":"Pablo2",
+    "nombre_usuario":"Camilo",
     "contraseña":"123123",
     "rol":"rol1"
 }
