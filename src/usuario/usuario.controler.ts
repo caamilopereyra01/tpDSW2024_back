@@ -1,6 +1,7 @@
 import  { NextFunction, Request, Response } from "express"
 import { UsuarioRepository } from "./usuario.repository.js"
 import { Usuario } from "./usuario.entity.js"
+import jwt from 'jsonwebtoken';
 
 const repository = new UsuarioRepository();
 
@@ -43,19 +44,19 @@ async function findOne(req: Request, res: Response) {
 
 
 //----------------------------  CREATE ----------------------------
-  async function add(req: Request, res: Response) {
-    const input = req.body.sanitizedInput
-  
-    const userInput = new Usuario(
-        input.id_usuario,
-        input.nombre_usuario,
-        input.contraseña,
-        input.rol
-    )
-  
-    const usuario = await repository.add(userInput);
-    return res.status(201).send({ message: 'usuario created', data: usuario })
-  }
+async function add(req: Request, res: Response) {
+  const input = req.body.sanitizedInput
+
+  const userInput = new Usuario(
+      input.id_usuario,
+      input.nombre_usuario,
+      input.contraseña,
+      input.rol
+  )
+
+  const usuario = await repository.add(userInput);
+  return res.status(201).send({ message: 'usuario created', data: usuario })
+}
 
 
 //----------------------------  UPDATE ----------------------------
@@ -78,18 +79,45 @@ async function update(req: Request, res: Response) {
 //----------------------------  DELETE ----------------------------
 /*Cambia el nombre de Delete a Remove pq sino no funciona se ve que es palabra reservada o algo asi*/
   
-    async function remove(req: Request, res: Response) {
-        const id = req.params.id_usuario
-        const usuario = await repository.delete({ id })
-      
-        if (!usuario) {
-          res.status(404).send({ message: 'usuario not found' });
-        } else {
-          res.status(200).send({ message: 'usuario deleted successfully' });
+async function remove(req: Request, res: Response) {
+    const id = req.params.id_usuario
+    const usuario = await repository.delete({ id })
+  
+    if (!usuario) {
+      res.status(404).send({ message: 'usuario not found' });
+    } else {
+      res.status(200).send({ message: 'usuario deleted successfully' });
+    }
+  }
+
+async function login(req:Request, res:Response){
+  try{
+      const user: Usuario = req.body;
+      if (user.id_usuario !== undefined) {
+        const dbUser = await repository.findOne({id: user.id_usuario.toString()});
+        if (!dbUser || dbUser.contraseña != user.contraseña) {
+          res.status(401).json({ message: 'Incorrect username or password' });
+          return;
         }
+        const token = jwt.sign({
+            nombreUsuario:dbUser.nombre_usuario, role: dbUser.rol},process.env.ACCESS_TOKEN_SECRET || "secret", { expiresIn: '8h' });
+        res.status(200).json({ token });
       }
+      else{
+        res.status(401).json({ message: 'Incorrect username or password' });
+        return;
+      }
+    }
+    catch(error){
+      console.error(error);
+      return res.status(500).json({message:"Internal server error"});
+    }
+  }
 
-
+  const checkToken = (req: Request, res: Response) => {
+    return res.status(200).json({ message: 'true' });
+  };
+  
 
 export const contUser = {
   sanitizeUsuarioInput,
@@ -98,6 +126,8 @@ export const contUser = {
   add,
   update,
   remove,
+  login,
+  checkToken,
 };
 
 
