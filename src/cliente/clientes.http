@@ -1,0 +1,44 @@
+### ----------------------------  GET ALL ----------------------------
+GET HTTP://localhost:3000/api/clientes
+
+
+### ----------------------------  GET ONE ----------------------------
+GET HTTP://localhost:3000/api/clientes/1
+ 
+### ----------------------------  CREATE (POST) ----------------------------
+POST http://localhost:3000/api/clientes
+Content-Type: application/json
+
+{
+    //"id_tipo_volquete":"4", no se define ya que es autoincremental
+    "nombre":"Camilo",
+    "apellido":"Pereyra",
+    "telefono":341345683,
+    "direccion":"Roca 1180"
+}
+
+### ----------------------------  UPDATE (PUT) ----------------------------
+
+
+
+### modificar un  character(put y patch)
+###PUT: para modificaciones COMPLETAS (todos los atributos que puedan ser  modificados)
+PUT http://localhost:3000/api/cientes/1
+Content-Type: application/json
+
+{
+    "nombre":"Camilo",
+    "apellido":"Pereyra",
+    "telefono":"341349683",
+    "direccion":"Roca 1170"
+}
+
+
+
+
+
+### ----------------------------  DELETE  ----------------------------
+
+DELETE http://localhost:3000/api/clientes/1
+
+
