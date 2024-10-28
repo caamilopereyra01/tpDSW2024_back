@@ -13,7 +13,7 @@ Content-Type: application/json
     //"id_tipo_volquete":"4", no se define ya que es autoincremental
     "nombre":"Camilo",
     "apellido":"Pereyra",
-    "telefono":341345683,
+    "telefono":"341345683",
     "direccion":"Roca 1180"
 }
 
@@ -23,7 +23,7 @@ Content-Type: application/json
 
 ### modificar un  character(put y patch)
 ###PUT: para modificaciones COMPLETAS (todos los atributos que puedan ser  modificados)
-PUT http://localhost:3000/api/cientes/1
+PUT http://localhost:3000/api/clientes/1
 Content-Type: application/json
 
 {

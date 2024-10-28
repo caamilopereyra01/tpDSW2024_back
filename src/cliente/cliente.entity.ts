@@ -16,11 +16,11 @@ export class Cliente  extends BaseEntity {
     @Property({ nullable: false })
     apellido!: string
 
-    @Property({ nullable: false })
-    telefono!: string
+    @Property({ nullable: true })
+    telefono?: string
 
-    @Property({ nullable: false })
-    direccion!: string
+    @Property({ nullable: true })
+    direccion?: string
 
     @ManyToMany(() => Volquete, (volquete) => volquete.clientes , {
         cascade: [Cascade.ALL],

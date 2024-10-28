@@ -13,12 +13,12 @@ import { Cliente } from '../cliente/cliente.entity.js'
 @Entity()
 export class Volquete extends BaseEntity{
  
-  @Property({ nullable: false })
-  marca!: string
-  @Property({ nullable: false })
-  fecha_fabricacion!: Date
-  @Property({ nullable: false })
-  fecha_compra!: Date
+  @Property({ nullable: true })
+  marca?: string
+  @Property({ nullable: true })
+  fecha_fabricacion?: Date
+  @Property({ nullable: true })
+  fecha_compra?: Date
 
   @ManyToOne(() => TipoVolquete, { nullable: false })
   TipoVolquete!: Rel<TipoVolquete>
