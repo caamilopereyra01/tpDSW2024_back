@@ -3,20 +3,21 @@ GET HTTP://localhost:3000/api/volquetes/tipovolquetes
 
 
 ### ----------------------------  GET ONE ----------------------------
-GET HTTP://localhost:3000/api/volquetes/tipovolquetes/4
- 
+GET HTTP://localhost:3000/api/volquetes/tipovolquetes/2
 
+ 
+### ----------------------------  GET VOLQUETES ----------------------------
+GET HTTP://localhost:3000/api/volquetes/tipovolquetes/4/volquetes
+
+ 
 ### ----------------------------  CREATE (POST) ----------------------------
 POST http://localhost:3000/api/volquetes/tipovolquetes
 Content-Type: application/json
 
 {
     //"id_tipo_volquete":"4", no se define ya que es autoincremental
-    "descripcion_tipo_volquete":"CHICO"
+    "descripcion_tipo_volquete":"MEDIANO"
 }
-
-
-
 
 ### ----------------------------  UPDATE (PUT) ----------------------------
 
@@ -49,6 +50,6 @@ Content-Type: application/json
 
 ### ----------------------------  DELETE  ----------------------------
 
-DELETE http://localhost:3000/api/volquetes/tipovolquetes/4
+DELETE http://localhost:3000/api/volquetes/tipovolquetes/1
 
 

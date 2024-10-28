@@ -2,6 +2,7 @@ import 'reflect-metadata'
 import express from 'express'
 import { tipovolqueteRouter } from './volquete/tipovolquete.routes.js'
 import { volqueteRouter } from './volquete/volquete.routes.js'
+import { clienteRouter } from './cliente/cliente.routes.js'
 import {orm, syncSchema} from './shared/db/orm.js'
 import { RequestContext } from '@mikro-orm/core'
 
@@ -18,6 +19,7 @@ app.use((req, res, next) => {
 //antes de las rutas y  middlewares de negocio
 app.use('/api/volquetes/tipovolquetes',tipovolqueteRouter)
 app.use('/api/volquetes',volqueteRouter)
+app.use('/api/clientes',clienteRouter)
 
 // DEFAULT
 app.use((_,res)=>{

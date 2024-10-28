@@ -1,7 +1,7 @@
 import  {  Request, Response } from 'express'
 import { orm } from '../shared/db/orm.js'
-import { TipoVolquete } from './tipovolquete.entity.js'
-import { Volquete } from './volquete.entity.js'
+import { Cliente } from './cliente.entity.js'
+import { Volquete } from '../volquete/volquete.entity.js'
 import { t } from '@mikro-orm/core'
 
 
@@ -12,10 +12,10 @@ const em = orm.em
 
 async function findAll(req: Request, res: Response) {
   try {
-    const tipoVolquetes = await em.find(TipoVolquete, {})
+    const clientes = await em.find(Cliente, {})
     res
       .status(200)
-      .json({ message: 'found all tipo volquetes', data: tipoVolquetes })
+      .json({ message: 'found all clientes', data: clientes })
   } catch (error: any) {
     res.status(500).json({ message: error.message })
   }
@@ -25,11 +25,11 @@ async function findAll(req: Request, res: Response) {
 
 async function findOne(req: Request, res: Response) {
   try {
-    const id = Number.parseInt(req.params.id_tipo_volquete)
-    const tipoVolquetes = await em.findOneOrFail(TipoVolquete, { id })
+    const id = Number.parseInt(req.params.id)
+    const clientes = await em.findOneOrFail(Cliente, { id })
     res
       .status(200)
-      .json({ message: 'found tipo volquetes', data: tipoVolquetes })
+      .json({ message: 'found clientes', data: clientes })
   } catch (error: any) {
     res.status(500).json({ message: error.message })
   }
@@ -39,29 +39,29 @@ async function findOne(req: Request, res: Response) {
 
 
 //----------------------------  GET VOLQUETES ----------------------------
-
+/*
 async function findVolquetes(req: Request, res: Response) {
-  try {
-    const id = Number.parseInt(req.params.id_tipo_volquete)
-        // Usamos `populate` para incluir la información del TipoVolquete en la consulta
-    const volquetes = await em.find(Volquete, { TipoVolquete: id }, { populate: ['TipoVolquete'] });
-    res
-      .status(200)
-      .json({ message: 'Volquetes encontrados: ', data: volquetes })
-  } catch (error: any) {
-    res.status(500).json({ message: error.message })
+    try {
+      const id = Number.parseInt(req.params.id_tipo_volquete)
+          // Usamos `populate` para incluir la información del TipoVolquete en la consulta
+      const volquetes = await em.find(Volquete, { TipoVolquete: id }, { populate: ['TipoVolquete'] });
+      res
+        .status(200)
+        .json({ message: 'Volquetes encontrados: ', data: volquetes })
+    } catch (error: any) {
+      res.status(500).json({ message: error.message })
+    }
   }
-}
-
+  */
 
 //----------------------------  CREATE ----------------------------
 async function add(req: Request, res: Response) {
   try {
-    const tipoVolquetes = em.create(TipoVolquete, req.body)
+    const clientes = em.create(Cliente, req.body)
     await em.flush()
     res
       .status(201)
-      .json({ message: 'Tipo Volquete created', data: tipoVolquetes })
+      .json({ message: 'Cliente created', data: clientes })
   } catch (error: any) {
     res.status(500).json({ message: error.message })
   }
@@ -73,11 +73,11 @@ async function add(req: Request, res: Response) {
 
 async function update(req: Request, res: Response) {
   try {
-    const id = Number.parseInt(req.params.id_tipo_volquete)
-    const tipoVolquete = em.getReference(TipoVolquete, id)
-    em.assign(tipoVolquete, req.body)
+    const id = Number.parseInt(req.params.id)
+    const cliente = em.getReference(Cliente, id)
+    em.assign(cliente, req.body)
     await em.flush()
-    res.status(200).json({ message: 'Tipo Volquete updated' })
+    res.status(200).json({ message: 'Cliente updated' })
   } catch (error: any) {
     res.status(500).json({ message: error.message })
   }
@@ -89,10 +89,10 @@ async function update(req: Request, res: Response) {
   
 async function remove(req: Request, res: Response) {
   try {
-    const id = Number.parseInt(req.params.id_tipo_volquete)
-    const tipoVolquetes = em.getReference(TipoVolquete, id)
-    await em.removeAndFlush(tipoVolquetes)
-    res.status(200).send({ message: 'tipo Volquete deleted' })
+    const id = Number.parseInt(req.params.id)
+    const cliEliminar = em.getReference(Cliente, id)
+    await em.removeAndFlush(cliEliminar)
+    res.status(200).send({ message: 'cliente deleted' })
   } catch (error: any) {
     res.status(500).json({ message: error.message })
   }
@@ -102,7 +102,7 @@ async function remove(req: Request, res: Response) {
 
 export const contTP = {
     findAll,
-    findVolquetes,
+    //findVolquetes,
     findOne,
     add,
     update,

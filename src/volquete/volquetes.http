@@ -3,19 +3,44 @@ GET HTTP://localhost:3000/api/volquetes
 
 
 ### ----------------------------  GET ONE ----------------------------
-GET HTTP://localhost:3000/api/volquetes/4
+GET HTTP://localhost:3000/api/volquetes/1
  
 
-### ----------------------------  CREATE (POST) ----------------------------
+
+
+### ----------------------------  CREATE (POST) 1 ----------------------------
 POST http://localhost:3000/api/volquetes
 Content-Type: application/json
 
 {
-    //"id_tipo_volquete":"4", no se define ya que es autoincremental
-    "descripcion_tipo_volquete":"EXTRA CHICO"
+  "marca": "Volvo",
+  "fecha_fabricacion": "2024-05-20 00:00:00",
+  "fecha_compra": "2024-08-03 00:00:00",
+  "TipoVolquete": 2
 }
 
 
+### ----------------------------  CREATE (POST) 2 ----------------------------
+POST http://localhost:3000/api/volquetes
+Content-Type: application/json
+   {
+      "id": 1,
+      "marca": "Caterpillar",
+      "fecha_fabricacion": "2024-03-01T03:00:00.000Z",
+      "fecha_compra": "2024-04-01T03:00:00.000Z",
+      "TipoVolquete":1
+   }
+
+### ----------------------------  CREATE (POST) 3 ----------------------------
+POST http://localhost:3000/api/volquetes
+Content-Type: application/json
+
+{
+  "marca": "Hitachi",
+  "fecha_fabricacion": "2024-04-20 00:00:00",
+  "fecha_compra": "2024-08-03 00:00:00",
+  "TipoVolquete": 4
+}
 
 
 ### ----------------------------  UPDATE (PUT) ----------------------------
@@ -24,14 +49,14 @@ Content-Type: application/json
 
 ### modificar un  character(put y patch)
 ###PUT: para modificaciones COMPLETAS (todos los atributos que puedan ser  modificados)
-PUT http://localhost:3000/api/volquetes/4
+PUT http://localhost:3000/api/volquetes/1
 Content-Type: application/json
 
 {
    "marca":"Caterpiler",
    "fecha_fabricacion":"2024-03-01",
-   "fecha_compra":"2024-04-01",
-   "id_tipo_volquete":1
+   "fecha_compra":"2024-05-11",
+   "TipoVolquete":1
 }
 
 
@@ -40,18 +65,24 @@ Content-Type: application/json
 ### ----------------------------  UPDATE (PATCH) ----------------------------
 
 ###PATCH: para modificaciones de un subconjunto de atributos.
-PATCH http://localhost:3000/api/volquetes/4
+PATCH http://localhost:3000/api/volquetes/1
 Content-Type: application/json
 
+
 {
-   "descripcion_tipo_volquete":"Extra - chico"
+   "marca":"Caterpiler",
+   "fecha_fabricacion":"2024-03-01",
+   "fecha_compra":"2024-05-11",
+   "TipoVolquete":1
 }
+
+
 
 
 
 
 ### ----------------------------  DELETE  ----------------------------
 
-DELETE http://localhost:3000/api/volquetes/4
+DELETE http://localhost:3000/api/volquetes/5
 
 
