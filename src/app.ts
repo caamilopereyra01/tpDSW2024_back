@@ -4,11 +4,12 @@ import { tipovolqueteRouter } from './volquete/tipovolquete.routes.js'
 import { volqueteRouter } from './volquete/volquete.routes.js'
 import { clienteRouter } from './cliente/cliente.routes.js'
 import {orm, syncSchema} from './shared/db/orm.js'
-import { RequestContext } from '@mikro-orm/core'
+import { MikroORM, RequestContext } from '@mikro-orm/core'
 
 const app = express()
 app.use(express.json())
 
+const PORT = 3000; 
 
 // luego de los middlewares base
 //em: entity management, permite manejar las entidades de forma uniforme y desde un unico punto
@@ -30,7 +31,7 @@ app.use((_,res)=>{
  await syncSchema()
  //----------------------------  RUNNING SERVER ----------------------------
  
- app.listen(3000, () => {
+ app.listen(PORT, () => {
      console.log('..............................Volquetes Los Hermanos Corriendo Correctamente en puerto 3000....................')
      console.log('..............................Servidor: Volquetes Los Hermanos....................')
      console.log('..............................Autores: Pereyra Camilo; Virgolini Pablo....................')
