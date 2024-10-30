@@ -6,6 +6,18 @@ import { clienteRouter } from './cliente/cliente.routes.js'
 import { alquilerRouter } from './alquiler/alquiler.routes.js'
 import {orm, syncSchema} from './shared/db/orm.js'
 import { MikroORM, RequestContext } from '@mikro-orm/core'
+import cors from 'cors';
+
+
+
+const corsOptions = {
+    origin: 'http://localhost:4200', // URL de la app de Angular 
+    methods: ['GET,HEAD,PUT,PATCH,POST,DELETE'],
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
+    credentials: true,
+  };
+// Use CORS middleware with the specified options
+
 
 const app = express()
 app.use(express.json())
@@ -15,6 +27,10 @@ const PORT = 3000;
 // luego de los middlewares base
 //em: entity management, permite manejar las entidades de forma uniforme y desde un unico punto
 //unidad de trabajo donde todas las entidades se consultan en el momento necesario
+
+app.use(cors(corsOptions)); // applies the CORS settings to all routes.
+app.options('*', cors(corsOptions)); 
+
 app.use((req, res, next) => {
     RequestContext.create(orm.em, next)
 })
