@@ -1,0 +1,90 @@
+### ----------------------------  GET ALL ----------------------------
+GET HTTP://localhost:3000/api/alquileres
+
+
+### ----------------------------  GET ONE ----------------------------
+GET HTTP://localhost:3000/api/alquileres/1
+ 
+
+
+
+### ----------------------------  CREATE (POST) 1 ----------------------------
+POST http://localhost:3000/api/alquileres
+Content-Type: application/json
+
+{
+  "marca": "Volvo",
+  "fecha_fabricacion": "2024-05-20 00:00:00",
+  "fecha_compra": "2024-08-03 00:00:00",
+  "TipoVolquete": 2
+}
+
+
+### ----------------------------  CREATE (POST) 2 ----------------------------
+POST http://localhost:3000/api/alquileres
+Content-Type: application/json
+   {
+      "id": 1,
+      "marca": "Caterpillar",
+      "fecha_fabricacion": "2024-03-01T03:00:00.000Z",
+      "fecha_compra": "2024-04-01T03:00:00.000Z",
+      "TipoVolquete":1
+   }
+
+### ----------------------------  CREATE (POST) 3 ----------------------------
+POST http://localhost:3000/api/alquileres
+Content-Type: application/json
+
+{
+  "fechaDesde": "2024-04-01 00:00:00",
+  "fechaHasta": "2024-04-20 00:00:00",
+  "fechaHrEntrega": "2024-08-03 00:00:00",
+  "fechaHrRetiro": "2024-08-03 00:00:00",
+  "estadoAlquiler": "2024-08-03 00:00:00",
+}
+
+
+### ----------------------------  UPDATE (PUT) ----------------------------
+
+
+
+### modificar un  character(put y patch)
+###PUT: para modificaciones COMPLETAS (todos los atributos que puedan ser  modificados)
+PUT http://localhost:3000/api/alquileres/1
+Content-Type: application/json
+
+{
+  "fechaDesde": "2024-04-01 00:00:00",
+  "fechaHasta": "2024-04-20 00:00:00",
+  "fechaHrEntrega": "2024-08-03 00:00:00",
+  "fechaHrRetiro": "2024-08-03 00:00:00",
+  "estadoAlquiler": "2024-08-03 00:00:00",
+}
+
+
+
+
+### ----------------------------  UPDATE (PATCH) ----------------------------
+
+###PATCH: para modificaciones de un subconjunto de atributos.
+PATCH http://localhost:3000/api/alquileres/1
+Content-Type: application/json
+
+{
+  "fechaDesde": "2024-04-01 00:00:00",
+  "fechaHasta": "2024-04-20 00:00:00",
+  "fechaHrEntrega": "2024-08-03 00:00:00",
+  "fechaHrRetiro": "2024-08-03 00:00:00",
+  "estadoAlquiler": "2024-08-03 00:00:00",
+}
+
+
+
+
+
+
+### ----------------------------  DELETE  ----------------------------
+
+DELETE http://localhost:3000/api/alquileres/5
+
+
