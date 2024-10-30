@@ -1,7 +1,9 @@
-import { Router } from "express";
-import { controlerV } from "./volquete.controler.js";/*Aqui utilizo controler para no tener que exportar todas las funciones*/
+import pkg from 'express';
+const { Router } = pkg;
 
-export const volqueteRouter = Router()
+import { controlerV } from './volquete.controler.js'; /*Aqui utilizo controler para no tener que exportar todas las funciones*/
+
+export const volqueteRouter = Router();
 
 volqueteRouter.get('/', controlerV.findAll)
 volqueteRouter.get('/:id', controlerV.findOne)
