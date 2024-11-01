@@ -25,7 +25,7 @@ const config = {
   entities: ['dist/**/*.entity.js'], // Entidades compiladas en JavaScript
   entitiesTs: ['src/**/*.entity.ts'], // Entidades en TypeScript
   dbName: 'sysvol',
-  clientUrl: 'mysql://root:12345@localhost:3382/sysvol',
+  clientUrl: 'mysql://root:12345@mysql_server:3382/sysvol',
 };
 const start = async()=>{
     const orm = await MikroORM.init(config)
