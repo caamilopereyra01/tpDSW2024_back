@@ -1,0 +1,41 @@
+### ----------------------------  GET ALL ----------------------------
+GET HTTP://localhost:3000/api/users
+
+
+### ----------------------------  GET ONE ----------------------------
+GET HTTP://localhost:3000/api/users/1
+ 
+### ----------------------------  CREATE (POST) ----------------------------
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+    "nombre_usuario":"Camilo",
+    "contraseña":"12345",
+    "rol":"admin"
+}
+
+### ----------------------------  UPDATE (PUT) ----------------------------
+
+
+
+### modificar un  character(put y patch)
+###PUT: para modificaciones COMPLETAS (todos los atributos que puedan ser  modificados)
+PUT http://localhost:3000/api/users/1
+Content-Type: application/json
+
+{
+    "nombre_usuario":"Camilo",
+    "contraseña":"123456",
+    "rol":"admin"
+}
+
+
+
+
+
+### ----------------------------  DELETE  ----------------------------
+
+DELETE http://localhost:3000/api/users/1
+
+

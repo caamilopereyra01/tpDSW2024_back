@@ -39,6 +39,7 @@ app.use('/api/volquetes/tipovolquetes',tipovolqueteRouter)
 app.use('/api/volquetes',volqueteRouter)
 app.use('/api/clientes',clienteRouter)
 app.use('/api/alquileres',alquilerRouter)
+app.use('/api/users',alquilerRouter)
 
 // DEFAULT
 app.use((_,res)=>{
