@@ -5,6 +5,7 @@ CREATE USER IF NOT EXISTS 'volqueteshermanos'@'%' IDENTIFIED BY 'volquetesherman
 
 -- Grant all privileges on the new database to the new user
 GRANT ALL PRIVILEGES ON sysvol.* TO 'volqueteshermanos'@'%';
+ALTER USER 'root'@'%' IDENTIFIED BY '12345';
 
 -- Flush privileges to ensure that the changes take effect
 FLUSH PRIVILEGES;
