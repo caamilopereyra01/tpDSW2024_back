@@ -21,10 +21,11 @@ services:
     environment:
       - MYSQL_DATABASE=sysvol
       - MYSQL_ROOT_USER=root
-      - MYSQL_USER= volqueteshermanos
-      #- MYSQL_ROOT_HOST= %
       - MYSQL_ROOT_PASSWORD=12345
+      - MYSQL_USER= volqueteshermanos
       - MYSQL_PASSWORD=volqueteshermanos
+      - MYSQL_ROOT_HOST= %
+      
       #- MYSQL_ALLOW_EMPTY_PASSWORD: yes
     volumes:
       - volquetesBD:/var/lib/mysql
