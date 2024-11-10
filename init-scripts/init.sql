@@ -281,7 +281,7 @@ DROP TABLE IF EXISTS `USUARIO`;
 CREATE TABLE `USUARIO` (
   `id_usuario` int NOT NULL AUTO_INCREMENT,
   `nombre_usuario` varchar(50) NOT NULL,
-  `contraseña` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `rol` varchar(50) NOT NULL,
   PRIMARY KEY (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

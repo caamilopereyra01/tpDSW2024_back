@@ -4,11 +4,13 @@ import { tipovolqueteRouter } from './volquete/tipovolquete.routes.js'
 import { volqueteRouter } from './volquete/volquete.routes.js'
 import { clienteRouter } from './cliente/cliente.routes.js'
 import { alquilerRouter } from './alquiler/alquiler.routes.js'
+import { userRouter } from './user/user.routes.js';
 import {orm, syncSchema} from './shared/db/orm.js'
 import { MikroORM, RequestContext } from '@mikro-orm/core'
 import cors from 'cors';
+import dotenv from 'dotenv';
 
-
+dotenv.config();
 
 const corsOptions = {
     origin: 'http://localhost:4200', // URL de la app de Angular 
@@ -34,12 +36,15 @@ app.options('*', cors(corsOptions));
 app.use((req, res, next) => {
     RequestContext.create(orm.em, next)
 })
+
+
+
 //antes de las rutas y  middlewares de negocio
 app.use('/api/volquetes/tipovolquetes',tipovolqueteRouter)
 app.use('/api/volquetes',volqueteRouter)
 app.use('/api/clientes',clienteRouter)
 app.use('/api/alquileres',alquilerRouter)
-app.use('/api/users',alquilerRouter)
+app.use('/api/users',userRouter)
 
 // DEFAULT
 app.use((_,res)=>{

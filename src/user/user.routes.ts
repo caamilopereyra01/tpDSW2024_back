@@ -9,3 +9,5 @@ userRouter.get('/:id', conU.findOne);
 userRouter.post('/', conU.add);
 userRouter.put('/:id', conU.update);
 userRouter.delete('/:id', conU.remove);
+userRouter.post('/singup',conU.signup);
+userRouter.post('/login', conU.login);
