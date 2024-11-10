@@ -3,7 +3,9 @@ import { orm } from '../shared/db/orm.js';
 import { User } from './user.entity.js';
 import { t } from '@mikro-orm/core';
 import jwt from 'jsonwebtoken';
+import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
+
 
 dotenv.config();
 const em = orm.em;
@@ -110,6 +112,51 @@ async function signup(req: Request, res: Response) {
 
 }
 
+var transporter = nodemailer.createTransport({
+  service:'gmail',
+  auth:{
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD
+  }
+})
+
+async function recoverpassword(req: Request, res: Response) {
+  const { email } = req.body;
+  try {
+    
+    const user = await em.findOne(User, { email }); 
+    
+    //hay que poner await porque em.findOne es ASINCRONA (devuelve una PROMESA)
+    // Sin await, la variable user almacenaría LA PROMESA EN SÍ y no el resultado.
+    // Entonces después sin el await nos aparecía ERROR en user.id, por ejemplo.
+    // Con el await le decís que ESPERE la resolución de la promesa antes de continuar.
+    // Otra opción es manejar la promesa con .then() y .catch()
+    
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    
+    var mailOptions = {
+      from: process.env.EMAIL,
+      to: user.email,
+      subject: 'Password by Volquetes',
+      html: '<p><b>Yout Login details for Volquetes </b><br><b>Email:</b>'+user.email+'<br><b>Password: </b>'+user.password+'<br><a href="http://localhost:4200"></a>Click here to login</p>'
+    };
+    transporter.sendMail(mailOptions,function(error,info){
+      if(error){
+        console.log(error);
+        
+      }else{
+        console.log('Email sent: '+info.response);
+      }
+    });
+    return res.status(200).json({message:"Password sent successfully to your email."});
+    
+  } catch (error) {
+    res.status(500).json({ message: 'An error occurred', error });
+  }
+}
+
 
 export const conU = {
   findAll,
@@ -119,5 +166,6 @@ export const conU = {
   update,
   remove,
   login,
-  signup
+  signup,
+  recoverpassword
 };

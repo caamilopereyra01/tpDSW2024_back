@@ -11,3 +11,4 @@ userRouter.put('/:id', conU.update);
 userRouter.delete('/:id', conU.remove);
 userRouter.post('/singup',conU.signup);
 userRouter.post('/login', conU.login);
+userRouter.post('/recoverpassword',conU.recoverpassword)
