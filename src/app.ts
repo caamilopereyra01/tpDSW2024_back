@@ -14,8 +14,8 @@ dotenv.config();
 
 const corsOptions = {
     origin: 'http://localhost:4200', // URL de la app de Angular 
-    methods: ['GET,HEAD,PUT,PATCH,POST,DELETE'],
-    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
+    methods: ['GET','HEAD','PUT','PATCH','POST','DELETE','OPTIONS'],
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'],
     credentials: true,
   };
 // Use CORS middleware with the specified options
