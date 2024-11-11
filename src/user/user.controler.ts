@@ -14,7 +14,7 @@ const em = orm.em;
 
 async function findAll(req: Request, res: Response) {
   try {
-    const users = await em.find(User, {});
+    const users = await em.find(User, {}, { orderBy: { id: 'asc' } });
     res.status(200).json({ message: 'found all users', data: users });
   } catch (error: any) {
     res.status(500).json({ message: error.message });

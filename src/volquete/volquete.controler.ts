@@ -32,7 +32,8 @@ async function findAll(req: Request, res: Response) {
       const volquetes = await em.find(
         Volquete,
         {},
-        { populate: ['TipoVolquete']}
+        { populate: ['TipoVolquete'], orderBy: { id: 'asc' } }
+        
       )
       res.status(200).json({message:'found all Volquetes', data:volquetes})
      } catch(error:any){

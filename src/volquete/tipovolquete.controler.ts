@@ -12,7 +12,7 @@ const em = orm.em
 
 async function findAll(req: Request, res: Response) {
   try {
-    const tipoVolquetes = await em.find(TipoVolquete, {})
+    const tipoVolquetes = await em.find(TipoVolquete, {}, { orderBy: { id: 'asc' } })
     res
       .status(200)
       .json({ message: 'found all tipo volquetes', data: tipoVolquetes })
@@ -88,14 +88,38 @@ async function update(req: Request, res: Response) {
 /*Cambia el nombre de Delete a Remove pq sino no funciona se ve que es palabra reservada o algo asi*/
   
 async function remove(req: Request, res: Response) {
-  try {
+  /*try {
     const id = Number.parseInt(req.params.id_tipo_volquete)
     const tipoVolquetes = em.getReference(TipoVolquete, id)
+    //Buscamos volquete asociado:
+    const volquetesAsociados = await em.find(Volquete, {TipoVolquete: id});
+
     await em.removeAndFlush(tipoVolquetes)
     res.status(200).send({ message: 'tipo Volquete deleted' })
   } catch (error: any) {
     res.status(500).json({ message: error.message })
   }
+*/
+
+try {
+  const id = Number.parseInt(req.params.id_tipo_volquete);
+
+  // Buscar si hay volquetes asociados al TipoVolquete
+  const volquetesAsociados = await em.count(Volquete, { TipoVolquete: id });
+
+  // Si existen volquetes asociados, enviamos un mensaje indicando que no se puede eliminar
+  if (volquetesAsociados > 0) {
+    return res.status(400).json({ message: 'No se puede eliminar el TipoVolquete porque tiene Volquetes asociados.' });
+  }
+
+  // Si no hay volquetes asociados, procedemos a eliminar el TipoVolquete
+  const tipoVolquete = await em.getReference(TipoVolquete, id);
+  await em.removeAndFlush(tipoVolquete);
+
+  res.status(200).send({ message: 'TipoVolquete eliminado exitosamente' });
+} catch (error: any) {
+  res.status(500).json({ message: error.message });
+}
 }
 
 
