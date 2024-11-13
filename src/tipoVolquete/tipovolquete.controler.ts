@@ -1,7 +1,7 @@
 import  {  Request, Response } from 'express'
 import { orm } from '../shared/db/orm.js'
 import { TipoVolquete } from './tipovolquete.entity.js'
-import { Volquete } from './volquete.entity.js'
+import { Volquete } from '../volquete/volquete.entity.js'
 import { t } from '@mikro-orm/core'
 
 
