@@ -16,7 +16,7 @@ Content-Type: application/json
   "marca": "Volvo",
   "fecha_fabricacion": "2024-05-20 00:00:00",
   "fecha_compra": "2024-08-03 00:00:00",
-  "TipoVolquete": 2
+  "TipoVolquete": 1
 }
 
 
@@ -24,7 +24,7 @@ Content-Type: application/json
 POST http://localhost:3000/api/volquetes
 Content-Type: application/json
    {
-      "id": 1,
+
       "marca": "Caterpillar",
       "fecha_fabricacion": "2024-03-01T03:00:00.000Z",
       "fecha_compra": "2024-04-01T03:00:00.000Z",

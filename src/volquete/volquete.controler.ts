@@ -1,5 +1,6 @@
 import  { NextFunction, Request, Response } from "express"
 import { Volquete } from "./volquete.entity.js"
+import { TipoVolquete } from "./tipovolquete.entity.js"; 
 import { orm } from "../shared/db/orm.js"
 
 const em = orm.em
@@ -41,6 +42,7 @@ async function findAll(req: Request, res: Response) {
      }
   }
   
+ 
 
 //----------------------------  GET ONE ----------------------------
 
