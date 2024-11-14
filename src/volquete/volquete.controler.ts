@@ -1,6 +1,5 @@
 import  { NextFunction, Request, Response } from "express"
-import { Volquete } from "./volquete.entity.js"
-import { TipoVolquete } from "./tipovolquete.entity.js"; 
+import { Volquete } from "./volquete.entity.js" 
 import { orm } from "../shared/db/orm.js"
 
 const em = orm.em
@@ -12,7 +11,7 @@ function sanitizeTipoVolqueteInput(req: Request, res: Response, next: NextFuncti
         marca: req.body.marca,
         fecha_fabricacion: req.body.fecha_fabricacion,
         fecha_compra: req.body.fecha_compra,
-        tipoVolquete: req.body.tipoVolquete,
+        TipoVolquete: req.body.TipoVolquete,
     }
     //mas chequeos
 
@@ -33,7 +32,7 @@ async function findAll(req: Request, res: Response) {
       const volquetes = await em.find(
         Volquete,
         {},
-        { populate: ['tipoVolquete'], orderBy: { id: 'asc' } }
+        { populate: ['TipoVolquete'], orderBy: { id: 'asc' } }
         
       )
       res.status(200).json({message:'found all Volquetes', data:volquetes})
@@ -52,7 +51,7 @@ async function findOne(req: Request, res: Response) {
     const volquete = await em.findOneOrFail(
       Volquete,
       { id },
-      { populate: ['tipoVolquete'] }
+      { populate: ['TipoVolquete'] }
     )
     res.status(200).json({ message: 'found volquete', data: volquete })
   } catch (error: any) {

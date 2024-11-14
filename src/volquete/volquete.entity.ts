@@ -21,7 +21,7 @@ export class Volquete extends BaseEntity{
   fecha_compra?: Date
 
   @ManyToOne(() => TipoVolquete, { nullable: false })
-  tipoVolquete!: Rel<TipoVolquete>
+  TipoVolquete!: Rel<TipoVolquete>
 
   @ManyToMany(() => Cliente, (cliente) => cliente.volquetes)
   clientes = new Collection<Cliente>(this)

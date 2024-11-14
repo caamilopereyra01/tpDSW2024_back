@@ -44,7 +44,7 @@ async function findVolquetes(req: Request, res: Response) {
   try {
     const id = Number.parseInt(req.params.id_tipo_volquete)
         // Usamos `populate` para incluir la información del TipoVolquete en la consulta
-    const volquetes = await em.find(Volquete, { tipoVolquete: id }, { populate: ['tipoVolquete'] });
+    const volquetes = await em.find(Volquete, { TipoVolquete: id }, { populate: ['TipoVolquete'] });
     res
       .status(200)
       .json({ message: 'Volquetes encontrados: ', data: volquetes })
@@ -105,7 +105,7 @@ try {
   const id = Number.parseInt(req.params.id_tipo_volquete);
 
   // Buscar si hay volquetes asociados al TipoVolquete
-  const volquetesAsociados = await em.count(Volquete, { tipoVolquete: id });
+  const volquetesAsociados = await em.count(Volquete, { TipoVolquete: id });
 
   // Si existen volquetes asociados, enviamos un mensaje indicando que no se puede eliminar
   if (volquetesAsociados > 0) {

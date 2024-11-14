@@ -14,7 +14,7 @@ export class TipoVolquete  extends BaseEntity {
     @Property({nullable: false, unique: true})
     descripcion_tipo_volquete!: string
 
-    @OneToMany(() => Volquete, (volquete) => volquete.tipoVolquete, {
+    @OneToMany(() => Volquete, (volquete) => volquete.TipoVolquete, {
         cascade: [Cascade.ALL],
     })
     volquetes = new Collection<Volquete>(this)
