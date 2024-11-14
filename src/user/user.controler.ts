@@ -94,15 +94,10 @@ async function login(req: Request, res: Response) {
       }
 
     // Crear un token JWT
-      const response = { id: user.id, nombre_usuario: user.nombre_usuario };
-      const accessToken = jwt.sign(
-        response,
-        process.env.ACCESS_TOKEN || 'default_secret_key',
-        {
-          expiresIn: '1h',
-        }
-      );
+      const response = { id: user.id, nombre_usuario: user.nombre_usuario, rol:user.rol };
+      const accessToken = jwt.sign(response, process.env.ACCESS_TOKEN!,{expiresIn: '1h'});
       res.status(200).json({ message: 'Login exitoso', token: accessToken });
+
   } catch(error:any){
       res.status(500).json({ message: error.message });
   }
@@ -133,7 +128,11 @@ async function recoverpassword(req: Request, res: Response) {
     // Otra opción es manejar la promesa con .then() y .catch()
     
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      //return res.status(404).json({ message: 'User not found' });
+      return res
+        .status(200)
+        .json({ message: '(-) Password sent successfully to your email  !' });
+        // mandamos esta respuesta para que no se sepa que no existe este usuario.
     }
     
     var mailOptions = {
