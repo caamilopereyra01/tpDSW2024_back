@@ -29,6 +29,7 @@ Content-Type: application/json
       "fecha_fabricacion": "2024-03-01T03:00:00.000Z",
       "fecha_compra": "2024-04-01T03:00:00.000Z",
       "TipoVolquete":1
+      "tipoVolquete":1
    }
 
 ### ----------------------------  CREATE (POST) 3 ----------------------------
@@ -40,6 +41,7 @@ Content-Type: application/json
   "fecha_fabricacion": "2024-04-20 00:00:00",
   "fecha_compra": "2024-08-03 00:00:00",
   "TipoVolquete": 4
+  "tipoVolquete": 4
 }
 
 
@@ -57,6 +59,7 @@ Content-Type: application/json
    "fecha_fabricacion":"2024-03-01",
    "fecha_compra":"2024-05-11",
    "TipoVolquete":1
+   "tipoVolquete":1
 }
 
 
@@ -74,6 +77,7 @@ Content-Type: application/json
    "fecha_fabricacion":"2024-03-01",
    "fecha_compra":"2024-05-11",
    "TipoVolquete":1
+   "tipoVolquete":1
 }
 
 

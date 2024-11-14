@@ -1,7 +1,7 @@
 import  {  Request, Response } from 'express'
 import { orm } from '../shared/db/orm.js'
 import { TipoVolquete } from './tipovolquete.entity.js'
-import { Volquete } from './volquete.entity.js'
+import { Volquete } from '../volquete/volquete.entity.js'
 import { t } from '@mikro-orm/core'
 
 
@@ -44,7 +44,7 @@ async function findVolquetes(req: Request, res: Response) {
   try {
     const id = Number.parseInt(req.params.id_tipo_volquete)
         // Usamos `populate` para incluir la información del TipoVolquete en la consulta
-    const volquetes = await em.find(Volquete, { TipoVolquete: id }, { populate: ['TipoVolquete'] });
+    const volquetes = await em.find(Volquete, { tipoVolquete: id }, { populate: ['tipoVolquete'] });
     res
       .status(200)
       .json({ message: 'Volquetes encontrados: ', data: volquetes })
@@ -105,7 +105,7 @@ try {
   const id = Number.parseInt(req.params.id_tipo_volquete);
 
   // Buscar si hay volquetes asociados al TipoVolquete
-  const volquetesAsociados = await em.count(Volquete, { TipoVolquete: id });
+  const volquetesAsociados = await em.count(Volquete, { tipoVolquete: id });
 
   // Si existen volquetes asociados, enviamos un mensaje indicando que no se puede eliminar
   if (volquetesAsociados > 0) {

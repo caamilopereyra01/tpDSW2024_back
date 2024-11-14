@@ -12,7 +12,7 @@ function sanitizeTipoVolqueteInput(req: Request, res: Response, next: NextFuncti
         marca: req.body.marca,
         fecha_fabricacion: req.body.fecha_fabricacion,
         fecha_compra: req.body.fecha_compra,
-        TipoVolquete: req.body.TipoVolquete,
+        tipoVolquete: req.body.tipoVolquete,
     }
     //mas chequeos
 
@@ -33,7 +33,7 @@ async function findAll(req: Request, res: Response) {
       const volquetes = await em.find(
         Volquete,
         {},
-        { populate: ['TipoVolquete'], orderBy: { id: 'asc' } }
+        { populate: ['tipoVolquete'], orderBy: { id: 'asc' } }
         
       )
       res.status(200).json({message:'found all Volquetes', data:volquetes})
@@ -52,7 +52,7 @@ async function findOne(req: Request, res: Response) {
     const volquete = await em.findOneOrFail(
       Volquete,
       { id },
-      { populate: ['TipoVolquete'] }
+      { populate: ['tipoVolquete'] }
     )
     res.status(200).json({ message: 'found volquete', data: volquete })
   } catch (error: any) {

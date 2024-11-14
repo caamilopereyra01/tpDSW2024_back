@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import express from 'express'
-import { tipovolqueteRouter } from './volquete/tipovolquete.routes.js'
+import { tipovolqueteRouter } from './tipoVolquete/tipovolquete.routes.js'
 import { volqueteRouter } from './volquete/volquete.routes.js'
 import { clienteRouter } from './cliente/cliente.routes.js'
 import { alquilerRouter } from './alquiler/alquiler.routes.js'
