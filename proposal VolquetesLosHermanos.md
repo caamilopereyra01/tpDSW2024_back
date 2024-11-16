@@ -3,7 +3,7 @@
 ## Grupo
 ### Integrantes
 * 47245 - Pereyra, Camilo
-* 33862 - Virgolini, Pablo
+* 33586 - Virgolini, Pablo
 
 ### Repositorios
 * [frontend app](http://hyperlinkToGihubOrGitlab)
