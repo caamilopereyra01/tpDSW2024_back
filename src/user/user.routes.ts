@@ -6,6 +6,7 @@ export const userRouter = Router();
 
 userRouter.get('/', conU.findAll);
 userRouter.get('/:id', conU.findOne);
+userRouter.post('/getEmailByUsername', conU.getEmailByUsername);
 userRouter.post('/', conU.add);
 userRouter.put('/:id', conU.update);
 userRouter.delete('/:id', conU.remove);

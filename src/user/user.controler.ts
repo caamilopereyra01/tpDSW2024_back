@@ -33,6 +33,27 @@ async function findOne(req: Request, res: Response) {
   }
 }
 
+async function getEmailByUsername(req: Request, res: Response) {
+  const { nombreUsuario } = req.body;
+
+  try {
+    const user = await em.findOne(User, { nombre_usuario: nombreUsuario });
+
+    if (!user) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+    
+    return res.status(200).json({ email: user.email });
+
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: 'Error al obtener el correo', error });
+  }
+}
+
+
+
 //----------------------------  CREATE ----------------------------
 async function add(req: Request, res: Response) {
   try {
@@ -163,6 +184,7 @@ export const conU = {
   findOne,
   add,
   update,
+  getEmailByUsername,
   remove,
   login,
   signup,
