@@ -8,7 +8,6 @@ function authenticateToken( req: Request, res: Response, next: NextFunction): Re
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
-  
   if (!token) {
     return res.status(401).json({ message: 'Token is missing' });
   }
@@ -16,7 +15,6 @@ function authenticateToken( req: Request, res: Response, next: NextFunction): Re
   jwt.verify(token, process.env.ACCESS_TOKEN as string, (err, decoded) => {
     if (err) {
       return res.status(403).json({ error: 'Invalid or expired token' }); // Forbidden
-      
     }
 
     const payload = decoded as JwtPayload;

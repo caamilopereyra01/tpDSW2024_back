@@ -11,4 +11,6 @@ function checkRole(  req: Request,  res: Response,  next: NextFunction): Respons
   }
 }
 
-export { checkRole };
+export const controllerCheckRole = {
+  checkRole,
+};
