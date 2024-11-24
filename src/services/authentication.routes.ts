@@ -17,12 +17,21 @@ const checkTokenHandler: RequestHandler = (req: Request, res: Response) => {
   });
 };
 
-authenticationRouter.get(
-  '/checkToken',
-  controlerAuthenticateToken.authenticateToken,
-  (req: Request, res: Response) => {
+authenticationRouter.get('/checkToken',
+  controlerAuthenticateToken.authenticateToken,(req: Request, res: Response) => {
     // Send response after token is verified
     checkTokenHandler;
   }
+
+
 );
 
+  authenticationRouter.get('/admin',
+    controlerAuthenticateToken.authenticateToken,(req, res) => {
+      const user = res.locals.user;
+      if (user.rol !== 'admin') {
+        return res.status(403).json({ error: 'Access denied' });
+      }
+      res.json({ message: 'Bienvenido al panel de administración' });
+    }
+  );

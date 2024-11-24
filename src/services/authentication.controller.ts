@@ -5,15 +5,24 @@ import { Request, Response, NextFunction } from 'express';
 dotenv.config();
 
 function authenticateToken( req: Request, res: Response, next: NextFunction): Response | void {
+  //Busca info en el header
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
-
   
   if (!token) {
     return res.status(401).json({ message: 'Token is missing' });
   }
 
   jwt.verify(token, process.env.ACCESS_TOKEN as string, (err, decoded) => {
+    /*  El método VERIFY no requiere los mismos datos que usé para generar el token (en nuestro caso usamos userid, nombre_usuario y rol)
+    El propósito del verify es validar el token usando sólo la clave secreta que guardamos en process.env.access_token
+    Al hacer el sign (que lo hacemos en user.controller.ts - en el login), se genera un token que incluye un payload y se asegura con una 
+    clave secreta que guardamos en ACCESS_TOKEN
+    Luego, el Verify verifica que el token no haya sido alterado. Si es valido vemos que decodifica el payload (payload = decoded) con la
+    info que almacenamos al crear el token (id, nombre_usuario, rol, ...). O sea: el payload es la info guardada en el token, y al verificarla
+    la decodificamos, la sacamos del token.
+    */
+
     if (err) {
       return res.status(403).json({ error: 'Invalid or expired token' }); // Forbidden
       
