@@ -114,7 +114,7 @@ async function login(req: Request, res: Response) {
         return res.status(401).json({ message: 'password incorrecta' });
       }
 
-    // Crear un token JWT
+    // Crear un token JWT a partir del userId, nombre_usuario, rol
       const response = { id: user.id, nombre_usuario: user.nombre_usuario, rol:user.rol };
       const accessToken = jwt.sign(response, process.env.ACCESS_TOKEN!,{expiresIn: '1h'});
       res.status(200).json({ message: 'Login exitoso', token: accessToken });
