@@ -6,13 +6,6 @@ const { Router } = pkg;
 export const authenticationRouter = Router();
 
 const checkTokenHandler: RequestHandler = (req: Request, res: Response) => {
-  // Recuperar el usuario de res.locals
-  const user = res.locals.user;
-
-  if (!user) {
-    return res.status(401).json({ message: 'User not found' });
-  }
-
   return res.status(200).json({
     valid: true,
     user,
@@ -21,7 +14,10 @@ const checkTokenHandler: RequestHandler = (req: Request, res: Response) => {
 
 authenticationRouter.get(
   '/checkToken',
-  controlerAuthenticateToken.authenticateToken,  //verifica el Token
-  checkTokenHandler //maneja la respuesta
+  controlerAuthenticateToken.authenticateToken,
+  (req: Request, res: Response) => {
+    // Send response after token is verified
+    checkTokenHandler;
+  }
 );
 

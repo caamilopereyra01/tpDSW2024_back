@@ -9,7 +9,6 @@ import {orm, syncSchema} from './shared/db/orm.js'
 import { MikroORM, RequestContext } from '@mikro-orm/core'
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { authenticationRouter } from './services/authentication.routes.js'
 
 dotenv.config();
 
@@ -46,7 +45,6 @@ app.use('/api/volquetes',volqueteRouter)
 app.use('/api/clientes',clienteRouter)
 app.use('/api/alquileres',alquilerRouter)
 app.use('/api/users',userRouter)
-app.use('/api/authentication', authenticationRouter);
 
 // DEFAULT
 app.use((_,res)=>{
