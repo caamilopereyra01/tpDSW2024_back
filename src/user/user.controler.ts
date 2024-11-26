@@ -115,9 +115,20 @@ async function login(req: Request, res: Response) {
       }
 
     // Crear un token JWT a partir del userId, nombre_usuario, rol
-      const response = { id: user.id, nombre_usuario: user.nombre_usuario, rol:user.rol };
+      const response = { 
+        id: user.id, 
+        nombre_usuario: user.nombre_usuario, 
+        rol:user.rol 
+      };
+
       const accessToken = jwt.sign(response, process.env.ACCESS_TOKEN!,{expiresIn: '1h'});
-      res.status(200).json({ message: 'Login exitoso', token: accessToken });
+      res.status(200).json({ message: 'Login exitoso', 
+        token: accessToken,
+        usuario: {
+          nombre_usuario: user.nombre_usuario,
+          rol: user.rol
+        }
+       });
 
   } catch(error:any){
       res.status(500).json({ message: error.message });
@@ -177,6 +188,21 @@ async function recoverpassword(req: Request, res: Response) {
   }
 }
 
+async function getRolByUsername(req: Request, res: Response) {
+  const { nombre_usuario } = req.params;
+  try {
+    const user = await em.findOne(User, { nombre_usuario });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json({ rol: user.rol });
+  } catch(error:any) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
 
 export const conU = {
   findAll,
@@ -188,5 +214,6 @@ export const conU = {
   remove,
   login,
   signup,
-  recoverpassword
+  recoverpassword,
+  getRolByUsername
 };

@@ -13,3 +13,4 @@ userRouter.delete('/:id', conU.remove);
 userRouter.post('/singup',conU.signup);
 userRouter.post('/login', conU.login);
 userRouter.post('/recoverpassword',conU.recoverpassword)
+userRouter.get('/rol/:nombre_usuario', conU.getRolByUsername);
