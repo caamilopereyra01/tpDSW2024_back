@@ -1,5 +1,5 @@
 import  { NextFunction, Request, Response } from "express"
-import { Alquiler } from "./alquiler.relation.js"
+import { Alquiler } from "./alquiler.entity.js"
 import { orm } from "../shared/db/orm.js"
 
 const em = orm.em
@@ -10,7 +10,7 @@ function sanitizeTipoVolqueteInput(req: Request, res: Response, next: NextFuncti
     req.body.sanitizedInput = {
         fechaDesde: req.body.mafechaDesderca,
         fechaHasta: req.body.fechaHasta,
-        fechfechaHrEntregaa_compra: req.body.fechaHrEntrega,
+        fechaHrEntrega: req.body.fechaHrEntrega,
         fechaHrRetiro: req.body.fechaHrRetiro,
         estadoAlquiler: req.body.estadoAlquiler,
         volquete: req.body.volquete,
