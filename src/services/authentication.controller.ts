@@ -6,12 +6,21 @@ dotenv.config();
 
 function authenticateToken( req: Request, res: Response, next: NextFunction): Response | void {
   //Busca info en el header
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1];
-  
-  if (!token) {
-    return res.status(401).json({ message: 'Token is missing' });
-  }
+    console.log('Endpoint /checkToken llamado');
+    const authHeader = req.headers['authorization'];
+    if (!authHeader) {
+      console.log('No se envió Token');
+      return res.status(401).json({ error: 'No token provided' });
+    }
+
+    //const token = authHeader && authHeader.split(' ')[1];
+    const token = authHeader.split(' ')[1];
+
+    if (!token) {
+      console.log('Token no válido');
+
+      return res.status(401).json({ message: 'Token is missing' });
+    }
 
   jwt.verify(token, process.env.ACCESS_TOKEN as string, (err, decoded) => {
     /*  El método VERIFY no requiere los mismos datos que usé para generar el token (en nuestro caso usamos userid, nombre_usuario y rol)
