@@ -88,14 +88,27 @@ async function update(req: Request, res: Response) {
       }
       }
 
-
-
+   async function getEstado(req: Request, res: Response) {
+     try {
+       const id = Number.parseInt(req.params.id);
+       const alquiler = em.findOneOrFail(
+        Alquiler,
+         {id},
+        {fields:['estadoAlquiler']}// Sólo veo el cambio estadoALquiler
+      );
+       res.status(200).json({message:'Estado del alquiler encontrado', data:(await alquiler).estadoAlquiler});
+     } catch (error: any) {
+       res.status(500).json({ message: error.message });
+     }
+   }
+   
 export const controlerAlquiler = {
     findAll,
     findOne,
     add,
     update,
-    remove
+    remove,
+    getEstado
 }
 
 

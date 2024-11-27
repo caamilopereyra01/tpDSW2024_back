@@ -8,3 +8,5 @@ alquilerRouter.get('/:id', controlerAlquiler.findOne)
 alquilerRouter.post('/', controlerAlquiler.add)
 alquilerRouter.put('/:id',controlerAlquiler.update)
 alquilerRouter.delete('/:id', controlerAlquiler.remove)
+
+alquilerRouter.get('/estado/:id', controlerAlquiler.getEstado);
