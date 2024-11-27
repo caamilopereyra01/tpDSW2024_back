@@ -13,38 +13,15 @@ POST http://localhost:3000/api/alquileres
 Content-Type: application/json
 
 {
-  "volquete": 1,
+  "volquete": 7,
   "cliente": 1,
   "fechaDesde": "2024-08-03 00:00:00",
   "fechaHasta": "2024-08-03 00:00:00",
   "fechaHrEntrega": "2024-08-03 00:00:00",
   "fechaHrRetiro": "2024-08-03 00:00:00",
-  "estadoAlquiler": "ALQUILADO",
+  "estadoAlquiler": "ALQUILADO"
 }
 
-
-### ----------------------------  CREATE (POST) 2 ----------------------------
-POST http://localhost:3000/api/alquileres
-Content-Type: application/json
-   {
-      "id": 1,
-      "marca": "Caterpillar",
-      "fecha_fabricacion": "2024-03-01T03:00:00.000Z",
-      "fecha_compra": "2024-04-01T03:00:00.000Z",
-      "TipoVolquete":1
-   }
-
-### ----------------------------  CREATE (POST) 3 ----------------------------
-POST http://localhost:3000/api/alquileres
-Content-Type: application/json
-
-{
-  "fechaDesde": "2024-04-01 00:00:00",
-  "fechaHasta": "2024-04-20 00:00:00",
-  "fechaHrEntrega": "2024-08-03 00:00:00",
-  "fechaHrRetiro": "2024-08-03 00:00:00",
-  "estadoAlquiler": "2024-08-03 00:00:00",
-}
 
 
 ### ----------------------------  UPDATE (PUT) ----------------------------
@@ -57,30 +34,14 @@ PUT http://localhost:3000/api/alquileres/1
 Content-Type: application/json
 
 {
-  "fechaDesde": "2024-04-01 00:00:00",
-  "fechaHasta": "2024-04-20 00:00:00",
-  "fechaHrEntrega": "2024-08-03 00:00:00",
+  "volquete": 7,
+  "cliente": 1,
+  "fechaDesde": "2024-11-03 00:00:00",
+  "fechaHasta": "2024-11-03 00:00:00",
+  "fechaHrEntrega": "2024-11-03 00:00:00",
   "fechaHrRetiro": "2024-08-03 00:00:00",
-  "estadoAlquiler": "2024-08-03 00:00:00",
+  "estadoAlquiler": "ALQUILADO"
 }
-
-
-
-
-### ----------------------------  UPDATE (PATCH) ----------------------------
-
-###PATCH: para modificaciones de un subconjunto de atributos.
-PATCH http://localhost:3000/api/alquileres/1
-Content-Type: application/json
-
-{
-  "fechaDesde": "2024-04-01 00:00:00",
-  "fechaHasta": "2024-04-20 00:00:00",
-  "fechaHrEntrega": "2024-08-03 00:00:00",
-  "fechaHrRetiro": "2024-08-03 00:00:00",
-  "estadoAlquiler": "2024-08-03 00:00:00",
-}
-
 
 
 
@@ -88,6 +49,6 @@ Content-Type: application/json
 
 ### ----------------------------  DELETE  ----------------------------
 
-DELETE http://localhost:3000/api/alquileres/5
+DELETE http://localhost:3000/api/alquileres/2
 
 

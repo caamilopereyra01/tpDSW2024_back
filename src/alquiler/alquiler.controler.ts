@@ -42,7 +42,7 @@ async function findOne(req: Request, res: Response) {
 
 //----------------------------  CREATE ----------------------------
 
-/*
+
 async function add(req: Request, res: Response) {
   try {
     const alquiler = em.create(Alquiler, req.body)
@@ -54,28 +54,6 @@ async function add(req: Request, res: Response) {
     res.status(500).json({ message: error.message })
   }
 }
-*/
-
-async function add(req: Request, res: Response) {
-  try {
-    const volquete = await em.findOne(Volquete, { id: Number.parseInt(req.params.volquete) });
-    const cliente = await em.findOne(Cliente, { id:  Number.parseInt(req.params.cliente)});
-    if (!volquete || !cliente) {
-      return res.status(400).json({ message: 'Volquete o Cliente no encontrado' });
-    }
-    const alquiler = em.create(Alquiler, req.body);
-    await em.flush();
-    res.status(201).json({ message: 'Alquiler created', data: alquiler });
-  } catch (error: any) {
-    console.error("Error al crear el alquiler:", error.stack); // Mostrar el stack trace completo
-    res.status(500).json({ message: error.message });
-  }
-}
-
-
-
-
-
 
 //----------------------------  UPDATE ----------------------------
 
@@ -84,8 +62,8 @@ async function add(req: Request, res: Response) {
 async function update(req: Request, res: Response) {
   try {
     const id = Number.parseInt(req.params.id)
-    const alquilerToUpdate = await em.findOneOrFail(Alquiler, { id })
-    em.assign(alquilerToUpdate, req.body.sanitizedInput)
+ const alquilerToUpdate = em.getReference(Alquiler, id)
+    em.assign(alquilerToUpdate, req.body)
     await em.flush()
     res
       .status(200)
