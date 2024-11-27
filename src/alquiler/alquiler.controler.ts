@@ -1,31 +1,10 @@
 import  { NextFunction, Request, Response } from "express"
 import { Alquiler } from "./alquiler.entity.js"
 import { orm } from "../shared/db/orm.js"
+import { Volquete } from "../volquete/volquete.entity.js"
+import { Cliente } from "../cliente/cliente.entity.js"
 
 const em = orm.em
-
-//---------------------------- DEFINO LA FUNCION SANITIZE ----------------------------
-
-function sanitizeTipoVolqueteInput(req: Request, res: Response, next: NextFunction){
-    req.body.sanitizedInput = {
-        fechaDesde: req.body.mafechaDesderca,
-        fechaHasta: req.body.fechaHasta,
-        fechaHrEntrega: req.body.fechaHrEntrega,
-        fechaHrRetiro: req.body.fechaHrRetiro,
-        estadoAlquiler: req.body.estadoAlquiler,
-        volquete: req.body.volquete,
-        cliente: req.body.cliente,
-    }
-    //mas chequeos
-
-    Object.keys(req.body.sanitizedInput).forEach(key=>{
-       if(req.body.sanitizedInput[key]===undefined) {
-        delete req.body.sanitizedInput[key]
-       }
-    })
-    next()
-}
-
 
 
 //----------------------------  GET ALL ----------------------------
@@ -52,7 +31,7 @@ async function findOne(req: Request, res: Response) {
     const alquiler = await em.findOneOrFail(
       Alquiler,
       { id },
-      { populate: ['cliente','volquete'] }
+      { populate: ['volquete','cliente'] }
     )
     res.status(200).json({ message: 'found alquiler', data: alquiler })
   } catch (error: any) {
@@ -63,20 +42,39 @@ async function findOne(req: Request, res: Response) {
 
 //----------------------------  CREATE ----------------------------
 
-
-  async function add(req: Request, res: Response) {
-    try {
-      console.log("Datos sanitizados:", req.body.sanitizedInput); //  verificar los datos
-
-      const alquiler = em.create(Alquiler, req.body.sanitizedInput)
-      await em.flush()
-      res.status(201).json({messaje: 'Alquiler created', data: alquiler})
-
-    } catch (error: any) {
-      console.error("Error al crear el alquiler:", error.stack); // Mostrar el stack trace completo
-      res.status(500).json({ mensaje: error.message });
-    }
+/*
+async function add(req: Request, res: Response) {
+  try {
+    const alquiler = em.create(Alquiler, req.body)
+    await em.flush()
+    res
+      .status(201)
+      .json({ message: 'Alquiler created', data: alquiler })
+  } catch (error: any) {
+    res.status(500).json({ message: error.message })
   }
+}
+*/
+
+async function add(req: Request, res: Response) {
+  try {
+    const volquete = await em.findOne(Volquete, { id: Number.parseInt(req.params.volquete) });
+    const cliente = await em.findOne(Cliente, { id:  Number.parseInt(req.params.cliente)});
+    if (!volquete || !cliente) {
+      return res.status(400).json({ message: 'Volquete o Cliente no encontrado' });
+    }
+    const alquiler = em.create(Alquiler, req.body);
+    await em.flush();
+    res.status(201).json({ message: 'Alquiler created', data: alquiler });
+  } catch (error: any) {
+    console.error("Error al crear el alquiler:", error.stack); // Mostrar el stack trace completo
+    res.status(500).json({ message: error.message });
+  }
+}
+
+
+
+
 
 
 //----------------------------  UPDATE ----------------------------
@@ -115,7 +113,6 @@ async function update(req: Request, res: Response) {
 
 
 export const controlerAlquiler = {
-    sanitizeTipoVolqueteInput,
     findAll,
     findOne,
     add,
