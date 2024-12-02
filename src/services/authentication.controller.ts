@@ -2,6 +2,8 @@ import dotenv from 'dotenv';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 
+
+
 dotenv.config();
 
 function authenticateToken( req: Request, res: Response, next: NextFunction): Response | void {
@@ -48,6 +50,8 @@ function authenticateToken( req: Request, res: Response, next: NextFunction): Re
     next();
   });
 }
+
+
 
 
 export const controlerAuthenticateToken = {

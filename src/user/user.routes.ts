@@ -1,6 +1,6 @@
 import pkg from 'express';
 const { Router } = pkg;
-import { conU } from './user.controler.js'; /*Aqui utilizo controler para no tener que exportar todas las funciones*/
+import { conU } from './user.controller.js'; /*Aqui utilizo controler para no tener que exportar todas las funciones*/
 
 export const userRouter = Router();
 
