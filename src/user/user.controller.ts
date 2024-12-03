@@ -56,7 +56,7 @@ async function getEmailByUsername(req: Request, res: Response) {
 
 
 //----------------------------  CREATE ----------------------------
-async function add(req: Request, res: Response) {
+export async function add(req: Request, res: Response) {
   try {
     const { password, ...userData } = req.body;  //extraigo la constraseña del cuerpo para manejarla por separado y hashearla
     //Capturo el resto de las propiedades de req.body (todas las propiedades excepto password) y las coloco en un nuevo objeto llamado userData.

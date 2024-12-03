@@ -16,7 +16,7 @@ export class User extends BaseEntity {
   nombre_usuario!: string;
 
   @Property({ unique: true })
-  email: string;
+  email: string | undefined;
 
   @Property({ nullable: false })
   password!: string;

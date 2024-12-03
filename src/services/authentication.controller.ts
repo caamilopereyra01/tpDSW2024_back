@@ -16,11 +16,11 @@ function authenticateToken( req: Request, res: Response, next: NextFunction): Re
     }
 
     //const token = authHeader && authHeader.split(' ')[1];
-    const token = authHeader.split(' ')[1];
+
+    const token = authHeader.split(' ')[1]; // Bearer <token>
 
     if (!token) {
-      console.log('Token no válido');
-
+      console.log('Token no existe');
       return res.status(401).json({ message: 'Token is missing' });
     }
 
@@ -55,5 +55,5 @@ function authenticateToken( req: Request, res: Response, next: NextFunction): Re
 
 
 export const controlerAuthenticateToken = {
-    authenticateToken,
+    authenticateToken
 }
