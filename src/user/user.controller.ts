@@ -115,6 +115,9 @@ async function remove(req: Request, res: Response) {
   }
 }
 
+
+//----------------------------  LOGIN  ----------------------------
+
 async function login(req: Request, res: Response) {
   const { nombre_usuario, password } = req.body;
 

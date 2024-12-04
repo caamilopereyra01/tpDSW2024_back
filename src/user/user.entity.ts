@@ -22,6 +22,6 @@ export class User extends BaseEntity {
   password!: string;
 
   @Property({ nullable: true })
-  rol?: string;
-  //rol?: UserRole;
+  //rol?: string;
+  rol?: UserRole;
 }
