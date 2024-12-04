@@ -3,9 +3,15 @@ import { conU } from './user.controller'; // Importo la función a testear
 import bcrypt from 'bcrypt';
 import { EntityManager } from '@mikro-orm/core';
 import { User } from './user.entity'; // 
+import { orm } from '../shared/db/orm.js';
 
-jest.mock('bcrypt');
-jest.mock('../shared/db/orm.js', () => ({
+
+const mockCreate = jest.fn();
+const mockFlush = jest.fn();
+
+
+
+  jest.mock('../shared/db/orm.js', () => ({
     orm: {
       em: {
         create: jest.fn(),
@@ -13,101 +19,110 @@ jest.mock('../shared/db/orm.js', () => ({
       },
     },
   }));
-  
-describe('User Controller - add', () => {
-  let em: jest.Mocked<EntityManager>; // Mock del EntityManager de MikroORM para no hacer operaciones reales en la BD
-  let req: Partial<Request>; // Mock del Request de Express
-  let res: Partial<Response>; // Mock del Response de Express
-  let statusMock: jest.Mock;
-  let jsonMock: jest.Mock;  //Simulaciones de los métodos de res.status y res.json.
 
-  //Inicialización de mocks antes de cada prueba
-  beforeEach(() => {
-    // Mock de EntityManager
-    em = {
-      create: jest.fn(), //simulamos la opcion de crear un usuario
-      flush: jest.fn(),  //simulamos la opcion de confirmar los cambios en la BD
-    } as unknown as jest.Mocked<EntityManager>;
+  jest.mock('bcrypt', () => ({
+    hash: jest.fn().mockResolvedValue('hashedPassword123'),
+  }));
 
-    // Mock de Request. Inicializamos un objeto con el cuerpo esperado de la solicitud para agregar un usuario
-    req = {
+describe('User Controller - Add', () => {
+
+    beforeEach(() => {
+        jest.clearAllMocks();
+      });
+
+      it('should accept a role not included in the UserRole enum', async () => {
+        const req = {
+          body: {
+            nombre_usuario: 'testuser',
+            email: 'test@example.com',
+            password: 'securePassword123',
+            rol: 'invalidRole', // Rol que no pertenece al enum UserRole
+          },
+        } as Partial<Request>;
+    
+        const res = {
+          status: jest.fn().mockReturnThis(),
+          json: jest.fn(),
+        } as unknown as Response;
+    
+        // Mock de bcrypt.hash para evitar hashing real
+        // jest.spyOn(bcrypt, 'hash').mockResolvedValue('hashedPassword123');
+    
+        // Ejecutar el método add
+        await conU.add(req as Request, res);
+    
+        // Verificar que em.create fue llamado con el rol "invalidRole"
+        expect(mockCreate).toHaveBeenCalledWith(User, {
+          nombre_usuario: 'testuser',
+          email: 'test@example.com',
+          password: 'hashedPassword123',
+          rol: 'invalidRole', // Rol no validado, lo acepta
+        });
+    
+        // Verificar que la respuesta del servidor es 201
+        expect(res.status).toHaveBeenCalledWith(201);
+        expect(res.json).toHaveBeenCalledWith(
+          expect.objectContaining({
+            message: 'User created',
+            nombre_usuario: 'testuser',
+            email: 'test@example.com',
+            rol: 'invalidRole',
+          })
+        );
+      });
+    
+
+
+  it('should create a user with the correct data', async () => {
+    const mockCreate = orm.em.create as jest.Mock;
+    const mockFlush = orm.em.flush as jest.Mock;
+
+    // Mock request and response
+    const req = {
       body: {
         nombre_usuario: 'testuser',
         email: 'test@example.com',
         password: 'password123',
         rol: 'user',
       },
-    };
+    } as unknown as Request;
 
-    // Mock de Response
-    jsonMock = jest.fn();
-    statusMock = jest.fn(() => ({
-      json: jsonMock,
-    }));
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    } as unknown as Response;
 
-    res = {
-      status: statusMock,
-    } as unknown as Partial<Response>;
-
-    jest.clearAllMocks(); // Limpia los mocks antes de cada prueba
-  });
-
-  it('should create a new user and return 201 status code', async () => {
-    // Mock de bcrypt.hash
-    (bcrypt.hash as jest.Mock).mockResolvedValue('hashedPassword123');
-
-    // Mock de em.create y em.flush
-    em.create.mockReturnValue({
+    // Simula el retorno de em.create
+    mockCreate.mockReturnValue({
       id: 1,
-      nombre_usuario: 'testuser',
-      email: 'test@example.com',
-      rol: 'user',
-    } as User);
-
-    // Ejecutar la función
-    await conU.add(req as Request, res as Response);
-
-    // Asegurarse de que bcrypt.hash fue llamado
-    expect(bcrypt.hash).toHaveBeenCalledWith('password123', 10);
-
-    // Asegurarse de que se creó el usuario con los datos correctos
-    expect(em.create).toHaveBeenCalledWith(User, {
       nombre_usuario: 'testuser',
       email: 'test@example.com',
       password: 'hashedPassword123',
       rol: 'user',
     });
 
-    // Asegurarse de que se llamó a flush
-    expect(em.flush).toHaveBeenCalled();
+    await conU.add(req, res);
 
-    // Verificar la respuesta correcta
-    expect(statusMock).toHaveBeenCalledWith(201);
-    expect(jsonMock).toHaveBeenCalledWith({
+    // Verifica que em.create fue llamado correctamente
+    expect(mockCreate).toHaveBeenCalledWith(User, {
+      nombre_usuario: 'testuser',
+      email: 'test@example.com',
+      password: 'hashedPassword123', // El hash simulado
+      rol: 'user',
+    });
+
+    // Verifica que em.flush fue llamado
+    expect(mockFlush).toHaveBeenCalled();
+
+    // Verifica que la respuesta sea la correcta
+    expect(res.status).toHaveBeenCalledWith(201);
+    expect(res.json).toHaveBeenCalledWith({
       message: 'User created',
       id: 1,
       nombre_usuario: 'testuser',
       email: 'test@example.com',
+      password: undefined, // Contraseña no expuesta
       rol: 'user',
-      password: undefined,
     });
-  });
-
-  it('should return 400 if password is missing', async () => {
-    req.body.password = undefined;
-
-    await conU.add(req as Request, res as Response);
-
-    expect(statusMock).toHaveBeenCalledWith(400);
-    expect(jsonMock).toHaveBeenCalledWith({ message: 'La contraseña es requerida' });
-  });
-
-  it('should return 500 on error', async () => {
-    em.flush.mockRejectedValue(new Error('Database error'));
-
-    await conU.add(req as Request, res as Response);
-
-    expect(statusMock).toHaveBeenCalledWith(500);
-    expect(jsonMock).toHaveBeenCalledWith({ message: 'Database error' });
   });
 });

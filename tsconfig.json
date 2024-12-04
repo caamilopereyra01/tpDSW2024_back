@@ -2,11 +2,13 @@
   "compilerOptions": {
     "incremental": true,
     "target": "es2020",
-    "module": "esnext",  // "ESNext"  // "ES2022"
-    "moduleResolution": "bundler", //"moduleResolution": "node",
+    "module": "ES2022",  
+    "moduleResolution": "bundler",
     "sourceMap": true,
+
     "outDir": "./dist",
-    "rootDir":"./",
+    "rootDir":"./src",
+    
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -16,5 +18,5 @@
     "experimentalDecorators": true
   },
   "include": ["src/**/*", "**/*.ts"],
-  "exclude": ["node_modules",  "**/*.test.ts" ]
+  "exclude": ["node_modules"]//,  "**/*.test.ts" ]
 }

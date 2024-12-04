@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { orm } from '../shared/db/orm.js';
-import { User } from './user.entity.js';
+import { UserRole, User } from './user.entity.js';
 import { t } from '@mikro-orm/core';
 import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
@@ -58,16 +58,21 @@ async function getEmailByUsername(req: Request, res: Response) {
 //----------------------------  CREATE ----------------------------
 export async function add(req: Request, res: Response) {
   try {
-    const { password, ...userData } = req.body;  //extraigo la constraseña del cuerpo para manejarla por separado y hashearla
+    const { password, rol, ...userData } = req.body;  //extraigo la constraseña del cuerpo para manejarla por separado y hashearla
     //Capturo el resto de las propiedades de req.body (todas las propiedades excepto password) y las coloco en un nuevo objeto llamado userData.
     if (!password) {
       return res.status(400).json({ message: 'La contraseña es requerida' });
     }
 
+    // Validar el rol
+    if (rol && !Object.values(UserRole).includes(rol)) {
+      return res.status(400).json({ message: 'Rol inválido' });
+    }
+
     // Generar el hash de la contraseña
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = em.create(User, { ...userData, password: hashedPassword });
+    const user = em.create(User, { ...userData, password: hashedPassword, rol });
     await em.flush();
 
     res.status(201).json({ message: 'User created', ...user, password: undefined }); //la respuesta va sin la password asì no la exponemos nunca
