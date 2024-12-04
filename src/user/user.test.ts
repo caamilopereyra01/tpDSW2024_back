@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { conU } from './user.controller'; // Importo la función a testear
 import bcrypt from 'bcrypt';
 import { EntityManager } from '@mikro-orm/core';
-import { User } from './user.entity'; // 
+import { User, UserRole } from './user.entity'; // 
 import { orm } from '../shared/db/orm.js';
 
 
@@ -23,6 +23,19 @@ const mockFlush = jest.fn();
   jest.mock('bcrypt', () => ({
     hash: jest.fn().mockResolvedValue('hashedPassword123'),
   }));
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 describe('User Controller - Add', () => {
 

@@ -38,8 +38,6 @@ app.use((req, res, next) => {
     RequestContext.create(orm.em, next)
 })
 
-
-
 //antes de las rutas y  middlewares de negocio
 app.use('/api/volquetes/tipovolquetes',tipovolqueteRouter)
 app.use('/api/volquetes',volqueteRouter)

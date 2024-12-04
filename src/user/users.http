@@ -30,12 +30,9 @@ Content-Type: application/json
     "rol":"admin"
 }
 
-
-
-
-
 ### ----------------------------  DELETE  ----------------------------
 
 DELETE http://localhost:3000/api/users/1
 
-
+### ----------------------------  GetAllRoles  ----------------------------
+GET http://localhost:3000/api/users/getAllRoles

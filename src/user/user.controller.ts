@@ -204,6 +204,7 @@ async function recoverpassword(req: Request, res: Response) {
       subject: 'Password by Volquetes',
       html: '<p><b>Yout Login details for Volquetes </b><br><b>Email:</b>'+user.email+'<br><b>Password: </b>'+user.password+'<br><a href="http://localhost:4200"></a>Click here to login</p>'
     };
+
     transporter.sendMail(mailOptions,function(error,info){
       if(error){
         console.log(error);
@@ -229,8 +230,36 @@ async function getRolByUsername(req: Request, res: Response) {
     }
 
     res.status(200).json({ rol: user.rol });
-  } catch(error:any) {
-    res.status(500).json({ message: error.message });
+    } catch(error:any) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
+export async function getAllRoles(req: Request, res: Response): Promise<void> {
+  try {
+    console.log('getAllRoles llamado');
+    const roles = ['admin', 'user', 'moderator']; // Array explícito de roles
+    res.status(200).json({ roles });
+  } catch (error) {
+    console.error('Error en getAllRoles:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+}
+
+
+export class RolesController {
+  getAllPossibleRoles = (req: Request, res: Response): void => {
+
+    try {
+      console.log('getAllPossibleRoles llamado');
+      const roles = ['admin', 'user', 'moderator']; // Explicit array
+
+//      const roles = Object.values(UserRole); // Obtiene los valores del enum
+      res.json({ roles });
+    } catch (error) {
+      console.error('Error en getAllPossibleRoles:', error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
   }
 }
 
@@ -246,5 +275,6 @@ export const conU = {
   login,
   signup,
   recoverpassword,
-  getRolByUsername
+  getRolByUsername,
+  getAllRoles
 };
