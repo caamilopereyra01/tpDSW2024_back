@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { conU } from './user.controller'; // Importo la función a testear
+import { conU, RolesController } from './user.controller'; // Importo la función a testear
 import bcrypt from 'bcrypt';
 import { EntityManager } from '@mikro-orm/core';
 import { User, UserRole } from './user.entity'; // 
@@ -23,18 +23,6 @@ const mockFlush = jest.fn();
   jest.mock('bcrypt', () => ({
     hash: jest.fn().mockResolvedValue('hashedPassword123'),
   }));
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 describe('User Controller - Add', () => {
@@ -139,3 +127,10 @@ describe('User Controller - Add', () => {
     });
   });
 });
+
+
+
+function puedoInstanciarRolesControler(){
+  const ctr = new RolesController();
+  ctr.getAllPossibleRoles.toString()
+}

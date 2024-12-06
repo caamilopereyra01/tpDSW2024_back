@@ -8,7 +8,6 @@ const rolesCtr = new RolesController();
 
 export const userRouter = Router();
 
-userRouter.get('/getAllRoles', conU.getAllRoles);
 userRouter.get('/getallpossibleroles', rolesCtr.getAllPossibleRoles);
 userRouter.get('/', conU.findAll);
 userRouter.get('/:id', conU.findOne);
