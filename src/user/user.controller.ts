@@ -1,10 +1,11 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { orm } from '../shared/db/orm.js';
-import { User } from './user.entity.js';
+import { UserRole, User } from './user.entity.js';
 import { t } from '@mikro-orm/core';
 import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
+import * as bcrypt from 'bcrypt';
 
 
 dotenv.config();
@@ -55,11 +56,26 @@ async function getEmailByUsername(req: Request, res: Response) {
 
 
 //----------------------------  CREATE ----------------------------
-async function add(req: Request, res: Response) {
+export async function add(req: Request, res: Response) {
   try {
-    const users = em.create(User, req.body);
+    const { password, rol, ...userData } = req.body;  //extraigo la constraseña del cuerpo para manejarla por separado y hashearla
+    //Capturo el resto de las propiedades de req.body (todas las propiedades excepto password) y las coloco en un nuevo objeto llamado userData.
+    if (!password) {
+      return res.status(400).json({ message: 'La contraseña es requerida' });
+    }
+
+    // Validar el rol
+    if (rol && !Object.values(UserRole).includes(rol)) {
+      return res.status(400).json({ message: 'Rol inválido' });
+    }
+
+    // Generar el hash de la contraseña
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = em.create(User, { ...userData, password: hashedPassword, rol });
     await em.flush();
-    res.status(201).json({ message: 'User created', data: users });
+
+    res.status(201).json({ message: 'User created', ...user, password: undefined }); //la respuesta va sin la password asì no la exponemos nunca
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
@@ -70,8 +86,14 @@ async function add(req: Request, res: Response) {
 async function update(req: Request, res: Response) {
   try {
     const id = Number.parseInt(req.params.id);
-    const user = em.getReference(User, id);
-    em.assign(user, req.body);
+    const user = await em.findOneOrFail(User, id);
+
+    const { password, ...updateData } = req.body;
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      updateData.password = hashedPassword;
+    }
+    em.assign(user, updateData);
     await em.flush();
     res.status(200).json({ message: 'User updated' });
   } catch (error: any) {
@@ -93,14 +115,20 @@ async function remove(req: Request, res: Response) {
   }
 }
 
+
+//----------------------------  LOGIN  ----------------------------
+
 async function login(req: Request, res: Response) {
   const { nombre_usuario, password } = req.body;
+
   try {
     //Verificamos que la contraseña no esté vacía
       if (!password || password.trim() === '') {
-        return res
-          .status(400)
-          .json({ message: 'La password no puede estar vacía' });
+        return res.status(400).json({ message: 'La password no puede estar vacía' });
+      }
+
+      if (!nombre_usuario || nombre_usuario.trim()==='') {
+        return res.status(400).json({ message: 'Nombre de usuario requerido' });
       }
 
     // Buscar usuario por nombre_usuario
@@ -110,8 +138,11 @@ async function login(req: Request, res: Response) {
         return res.status(404).json({ message: 'User not found' });
       }
 
-      if (user.password != password) {
-        return res.status(401).json({ message: 'password incorrecta' });
+
+      // Verificamos la contraseña ingresada con el hash almacenado
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.status(401).json({ message: 'Contraseña incorrecta' });
       }
 
     // Crear un token JWT a partir del userId, nombre_usuario, rol
@@ -173,6 +204,7 @@ async function recoverpassword(req: Request, res: Response) {
       subject: 'Password by Volquetes',
       html: '<p><b>Yout Login details for Volquetes </b><br><b>Email:</b>'+user.email+'<br><b>Password: </b>'+user.password+'<br><a href="http://localhost:4200"></a>Click here to login</p>'
     };
+
     transporter.sendMail(mailOptions,function(error,info){
       if(error){
         console.log(error);
@@ -198,12 +230,40 @@ async function getRolByUsername(req: Request, res: Response) {
     }
 
     res.status(200).json({ rol: user.rol });
-  } catch(error:any) {
-    res.status(500).json({ message: error.message });
+    } catch(error:any) {
+      res.status(500).json({ message: error.message });
+    }
+  };
+
+export async function getAllRoles(req: Request, res: Response): Promise<void> {
+  try {
+    console.log('getAllRoles llamado');
+    const roles = ['admin', 'user', 'moderator']; // Array explícito de roles
+    res.status(200).json({ roles });
+  } catch (error) {
+    console.error('Error en getAllRoles:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 }
 
 
+export class RolesController {
+  getAllPossibleRoles = (req: Request, res: Response): void => {
+
+    try {
+      console.log('getAllPossibleRoles llamado');
+      const roles = ['admin', 'user', 'moderator']; // Explicit array
+
+//      const roles = Object.values(UserRole); // Obtiene los valores del enum
+      res.json({ roles });
+    } catch (error) {
+      console.error('Error en getAllPossibleRoles:', error);
+      res.status(500).json({ message: 'Internal Server Error' });
+    }
+  }
+}
+
+// Middleware para verificar la contraseña
 export const conU = {
   findAll,
   //findVolquetes,
@@ -215,5 +275,6 @@ export const conU = {
   login,
   signup,
   recoverpassword,
-  getRolByUsername
+  getRolByUsername,
+  getAllRoles
 };

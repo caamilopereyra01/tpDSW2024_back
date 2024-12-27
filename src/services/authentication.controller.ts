@@ -2,6 +2,8 @@ import dotenv from 'dotenv';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 
+
+
 dotenv.config();
 
 function authenticateToken( req: Request, res: Response, next: NextFunction): Response | void {
@@ -14,11 +16,11 @@ function authenticateToken( req: Request, res: Response, next: NextFunction): Re
     }
 
     //const token = authHeader && authHeader.split(' ')[1];
-    const token = authHeader.split(' ')[1];
+
+    const token = authHeader.split(' ')[1]; // Bearer <token>
 
     if (!token) {
-      console.log('Token no válido');
-
+      console.log('Token no existe');
       return res.status(401).json({ message: 'Token is missing' });
     }
 
@@ -50,6 +52,8 @@ function authenticateToken( req: Request, res: Response, next: NextFunction): Re
 }
 
 
+
+
 export const controlerAuthenticateToken = {
-    authenticateToken,
+    authenticateToken
 }

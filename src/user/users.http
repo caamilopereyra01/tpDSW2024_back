@@ -11,7 +11,10 @@ Content-Type: application/json
 
 {
     "nombre_usuario":"Camilo",
+<<<<<<< HEAD
     "email": "p@p.com",
+=======
+>>>>>>> 96e332406f01fe92b74e6e34ade107af8e31b13d
     "password":"12345",
     "rol":"admin"
 }
@@ -32,12 +35,9 @@ Content-Type: application/json
     "rol":"admin"
 }
 
-
-
-
-
 ### ----------------------------  DELETE  ----------------------------
 
 DELETE http://localhost:3000/api/users/1
 
-
+### ----------------------------  GetAllRoles  ----------------------------
+GET http://localhost:3000/api/users/getAllRoles
