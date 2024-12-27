@@ -10,6 +10,7 @@ import { MikroORM, RequestContext } from '@mikro-orm/core'
 import cors from 'cors';
 import dotenv from 'dotenv';
 import { authenticationRouter } from './services/authentication.routes.js'
+import { rolRouter } from './rol/rol.routes.js'
 
 dotenv.config();
 
@@ -47,6 +48,7 @@ app.use('/api/clientes',clienteRouter)
 app.use('/api/alquileres',alquilerRouter)
 app.use('/api/users',userRouter)
 app.use('/api/authentication', authenticationRouter)
+app.use('/api/roles',rolRouter)
 
 // DEFAULT
 app.use((_,res)=>{
