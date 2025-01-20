@@ -14,6 +14,6 @@ export class Rol  extends BaseEntity {
     @Property({nullable: false, unique: true})
     descripcion!: string
 
-    @OneToMany(() => User, (user) => user.rol)
+    @OneToMany(() => User, user => user.rol)
     users!: User[]; // Relación One-to-Many: un rol tiene muchos usuarios
 }

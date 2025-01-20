@@ -5,7 +5,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "build": "tsc", 
+    "build": "tsc",
     "start:dev": "tsc-watch --noClear -p ./tsconfig.json --onSuccess \"node ./dist/app.js\"",
     "test": "jest"
   },
@@ -19,8 +19,9 @@
     "00.01-tpdsw2024_back": "file:",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
+    "cross-spawn": "^7.0.5",
     "dotenv": "^16.4.5",
-    "express": "^4.21.1",
+    "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "nodemailer": "^6.9.16",
     "reflect-metadata": "0.2.2"

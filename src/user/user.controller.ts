@@ -139,12 +139,17 @@ async function login(req: Request, res: Response) {
       }
 
 
+      console.log('antes de comparar')
+      console.log(user.password)
+      console.log(password)
+
+
       // Verificamos la contraseña ingresada con el hash almacenado
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
         return res.status(401).json({ message: 'Contraseña incorrecta' });
       }
-
+      console.log('despues de comparar')
     // Crear un token JWT a partir del userId, nombre_usuario, rol
       const response = { 
         id: user.id, 
@@ -157,7 +162,7 @@ async function login(req: Request, res: Response) {
         token: accessToken,
         usuario: {
           nombre_usuario: user.nombre_usuario,
-          rol: user.rol
+          rol: user.rol?.descripcion
         }
        });
 

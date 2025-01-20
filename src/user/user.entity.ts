@@ -1,8 +1,10 @@
 import { 
     Entity,
     Property,
+    ManyToOne,
 } from '@mikro-orm/core'
 import { BaseEntity } from '../shared/db/baseEntity.entity.js'
+import { Rol } from '../rol/rol.entity.js';
 
 export enum UserRole {
   ADMIN = 'admin',
@@ -21,7 +23,6 @@ export class User extends BaseEntity {
   @Property({ nullable: false })
   password!: string;
 
-  @Property({ nullable: true })
-  //rol?: string;
-  rol?: UserRole;
+  @ManyToOne(() => Rol)
+  rol: Rol | undefined;
 }
