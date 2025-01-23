@@ -36,25 +36,6 @@ async function findOne(req: Request, res: Response) {
   }
 }
 
-
-
-
-//----------------------------  GET VOLQUETES ----------------------------
-/*
-async function findVolquetes(req: Request, res: Response) {
-    try {
-      const id = Number.parseInt(req.params.id_tipo_volquete)
-          // Usamos `populate` para incluir la información del TipoVolquete en la consulta
-      const volquetes = await em.find(Volquete, { TipoVolquete: id }, { populate: ['TipoVolquete'] });
-      res
-        .status(200)
-        .json({ message: 'Volquetes encontrados: ', data: volquetes })
-    } catch (error: any) {
-      res.status(500).json({ message: error.message })
-    }
-  }
-  */
-
 //----------------------------  CREATE ----------------------------
 async function add(req: Request, res: Response) {
   try {

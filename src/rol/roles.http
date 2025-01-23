@@ -3,17 +3,14 @@ GET HTTP://localhost:3000/api/roles
 
 
 ### ----------------------------  GET ONE ----------------------------
-GET HTTP://localhost:3000/api/users/1
+
  
 ### ----------------------------  CREATE (POST) ----------------------------
-POST http://localhost:3000/api/users
+POST http://localhost:3000/api/roles
 Content-Type: application/json
 
 {
-    "nombre_usuario":"Camilo",
-    "email": "p@p.com",
-    "password":"12345",
-    "rol":"admin"
+    "descripcion": "invitado"
 }
 
 ### ----------------------------  UPDATE (PUT) ----------------------------
@@ -22,22 +19,6 @@ Content-Type: application/json
 
 ### modificar un  character(put y patch)
 ###PUT: para modificaciones COMPLETAS (todos los atributos que puedan ser  modificados)
-PUT http://localhost:3000/api/users/1
-Content-Type: application/json
-
-{
-    "nombre_usuario":"Camilo",
-    "email": "caamilopereyra01@gmail.com",
-    "contraseña":"123456",
-    "rol":"admin"
-}
-
-
-
-
 
 ### ----------------------------  DELETE  ----------------------------
-
-DELETE http://localhost:3000/api/users/1
-
 

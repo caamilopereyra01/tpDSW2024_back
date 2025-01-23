@@ -3,18 +3,18 @@ GET HTTP://localhost:3000/api/users
 
 
 ### ----------------------------  GET ONE ----------------------------
-GET HTTP://localhost:3000/api/users/1
+GET HTTP://localhost:3000/api/users/4
  
 ### ----------------------------  CREATE (POST) ----------------------------
 POST http://localhost:3000/api/users
 Content-Type: application/json
 
 {
-    "nombre_usuario":"Camilo",
-<<<<<<< HEAD
-    "email": "p@p.com",
-=======
->>>>>>> 96e332406f01fe92b74e6e34ade107af8e31b13d
+    "nombre_usuario":"Pablo",
+//<<<<<<< HEAD
+    "email": "pvirgolini@gmail.com",
+//=======
+//>>>>>>> 96e332406f01fe92b74e6e34ade107af8e31b13d
     "password":"12345",
     "rol":"admin"
 }
