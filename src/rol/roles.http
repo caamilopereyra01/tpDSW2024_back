@@ -3,7 +3,7 @@ GET HTTP://localhost:3000/api/roles
 
 
 ### ----------------------------  GET ONE ----------------------------
-
+GET HTTP://localhost:3000/api/roles/1
  
 ### ----------------------------  CREATE (POST) ----------------------------
 POST http://localhost:3000/api/roles
@@ -14,11 +14,14 @@ Content-Type: application/json
 }
 
 ### ----------------------------  UPDATE (PUT) ----------------------------
-
-
-
 ### modificar un  character(put y patch)
 ###PUT: para modificaciones COMPLETAS (todos los atributos que puedan ser  modificados)
+PUT http://localhost:3000/api/roles/1
+Content-Type: application/json
 
+{
+    "descripcion":"usuario restringido"
+}
 ### ----------------------------  DELETE  ----------------------------
 
+DELETE http://localhost:3000/api/roles/3

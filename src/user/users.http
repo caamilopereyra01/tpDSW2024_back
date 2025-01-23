@@ -16,13 +16,10 @@ Content-Type: application/json
 //=======
 //>>>>>>> 96e332406f01fe92b74e6e34ade107af8e31b13d
     "password":"12345",
-    "rol":"admin"
+    "rol": "1"
 }
 
 ### ----------------------------  UPDATE (PUT) ----------------------------
-
-
-
 ### modificar un  character(put y patch)
 ###PUT: para modificaciones COMPLETAS (todos los atributos que puedan ser  modificados)
 PUT http://localhost:3000/api/users/1
@@ -39,5 +36,5 @@ Content-Type: application/json
 
 DELETE http://localhost:3000/api/users/1
 
-### ----------------------------  GetAllRoles  ----------------------------
+### ----------------------------  GetAllRoles del usuario  ----------------------------
 GET http://localhost:3000/api/users/getAllRoles

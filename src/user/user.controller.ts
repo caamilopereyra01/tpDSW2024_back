@@ -27,7 +27,10 @@ async function findAll(req: Request, res: Response) {
 async function findOne(req: Request, res: Response) {
   try {
     const id = Number.parseInt(req.params.id);
-    const users = await em.findOneOrFail(User, { id });
+    const users = await em.findOneOrFail(User, { id }, {
+      populate:['rol'],
+      orderBy:{id:'asc'}
+    });
     res.status(200).json({ message: 'found users', data: users });
   } catch (error: any) {
     res.status(500).json({ message: error.message });
@@ -65,10 +68,12 @@ export async function add(req: Request, res: Response) {
     }
 
     // Validar el rol
+    /*
     if (rol && !Object.values(UserRole).includes(rol)) {
       return res.status(400).json({ message: 'Rol inválido' });
     }
-
+    */
+   
     // Generar el hash de la contraseña
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -139,9 +144,9 @@ async function login(req: Request, res: Response) {
       }
 
 
-      console.log('antes de comparar')
-      console.log(user.password)
-      console.log(password)
+      //console.log('antes de comparar')
+      //console.log(user.password)
+      //console.log(password)
 
 
       // Verificamos la contraseña ingresada con el hash almacenado
@@ -149,6 +154,7 @@ async function login(req: Request, res: Response) {
       if (!isMatch) {
         return res.status(401).json({ message: 'Contraseña incorrecta' });
       }
+      
       console.log('despues de comparar')
     // Crear un token JWT a partir del userId, nombre_usuario, rol
       const response = { 
