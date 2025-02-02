@@ -37,4 +37,4 @@ Content-Type: application/json
 DELETE http://localhost:3000/api/users/1
 
 ### ----------------------------  GetAllRoles del usuario  ----------------------------
-GET http://localhost:3000/api/users/getAllRoles
+GET http://localhost:3000/api/users/rol/admin
