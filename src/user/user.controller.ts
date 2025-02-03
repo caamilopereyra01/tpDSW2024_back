@@ -6,10 +6,18 @@ import jwt from 'jsonwebtoken';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import * as bcrypt from 'bcrypt';
+import { Rol } from '../rol/rol.entity.js';
 
 
 dotenv.config();
 const em = orm.em;
+
+// Mapeo de números a roles
+const rolesMap: Record<number, UserRole> = {
+  1: UserRole.ADMIN,
+  2: UserRole.USER,
+  3: UserRole.MODERATOR,
+};
 
 //----------------------------  GET ALL ----------------------------
 
@@ -59,32 +67,38 @@ async function getEmailByUsername(req: Request, res: Response) {
 
 
 //----------------------------  CREATE ----------------------------
+
 export async function add(req: Request, res: Response) {
   try {
-    const { password, rol, ...userData } = req.body;  //extraigo la constraseña del cuerpo para manejarla por separado y hashearla
-    //Capturo el resto de las propiedades de req.body (todas las propiedades excepto password) y las coloco en un nuevo objeto llamado userData.
+    const { password, rol, ...userData } = req.body; // Extraemos la contraseña y rol para manejarlos por separado
+
+    // Verificamos que la contraseña esté presente
     if (!password) {
       return res.status(400).json({ message: 'La contraseña es requerida' });
     }
 
-    // Validar el rol
-    /*
-    if (rol && !Object.values(UserRole).includes(rol)) {
+    // Buscamos el rol en la base de datos usando el ID que se pasa en el cuerpo de la solicitud
+    const role = await em.findOne(Rol, rol); // Aquí rol es el ID del rol, no un objeto
+
+    // Verificamos si el rol existe
+    if (!role) {
       return res.status(400).json({ message: 'Rol inválido' });
     }
-    */
-   
-    // Generar el hash de la contraseña
+
+    // Generamos el hash de la contraseña
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = em.create(User, { ...userData, password: hashedPassword, rol });
+    // Creamos el nuevo usuario con la relación al rol
+    const user = em.create(User, { ...userData, password: hashedPassword, rol: role });
     await em.flush();
 
-    res.status(201).json({ message: 'User created', ...user, password: undefined }); //la respuesta va sin la password asì no la exponemos nunca
+    res.status(201).json({ message: 'Usuario creado', ...user, password: undefined }); // La respuesta no incluye la contraseña
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
 }
+
+
 
 //----------------------------  UPDATE ----------------------------
 

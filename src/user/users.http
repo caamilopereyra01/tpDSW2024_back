@@ -10,13 +10,10 @@ POST http://localhost:3000/api/users
 Content-Type: application/json
 
 {
-    "nombre_usuario":"Pablo",
-//<<<<<<< HEAD
-    "email": "pvirgolini@gmail.com",
-//=======
-//>>>>>>> 96e332406f01fe92b74e6e34ade107af8e31b13d
-    "password":"12345",
-    "rol": "1"
+  "nombre_usuario": "giane",
+  "email": "giane@gmail.com",
+  "password": "12345",
+  "rol": 2
 }
 
 ### ----------------------------  UPDATE (PUT) ----------------------------
